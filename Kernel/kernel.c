@@ -36,54 +36,25 @@ void * getStackBase()
 
 void * initializeKernelBinary()
 {
-	char buffer[10];
 
-	ncPrint("[x64BareBones]");
-	ncNewline();
-
-	ncPrint("CPU Vendor:");
-	ncPrint(cpuVendor(buffer));
-	ncNewline();
-
-	ncPrint("[Loading modules]");
-	ncNewline();
 	void * moduleAddresses[] = {
 		sampleCodeModuleAddress,
 		sampleDataModuleAddress
 	};
 
 	loadModules(&endOfKernelBinary, moduleAddresses);
-	ncPrint("[Done]");
-	ncNewline();
-	ncNewline();
-
-	ncPrint("[Initializing kernel's binary]");
-	ncNewline();
-
-	clearBSS(&bss, &endOfKernel - &bss);
-
-	ncPrint("  text: 0x");
-	ncPrintHex((uint64_t)&text);
-	ncNewline();
-	ncPrint("  rodata: 0x");
-	ncPrintHex((uint64_t)&rodata);
-	ncNewline();
-	ncPrint("  data: 0x");
-	ncPrintHex((uint64_t)&data);
-	ncNewline();
-	ncPrint("  bss: 0x");
-	ncPrintHex((uint64_t)&bss);
-	ncNewline();
-
-	ncPrint("[Done]");
-	ncNewline();
-	ncNewline();
+		clearBSS(&bss, &endOfKernel - &bss);
 	return getStackBase();
 }
 
 int main()
 {
-    load_idt();
-    ncPrint("blabaduba");
+	//ncPrint("[Kernel Main]");
+	//ncPrint("blabaduba");
+		load_idt();
+    //ncPrint("blabaduba");
+		//paintPixel(80,25,155,10,2);
+		paintBackGround();
+
 	return 0;
 }
