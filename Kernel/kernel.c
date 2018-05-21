@@ -55,6 +55,10 @@ int main()
     //ncPrint("blabaduba");
 		//paintPixel(80,25,155,10,2);
 		paintBackGround();
+		ncPrint("[Done]");
+  ncNewline();
+  ncNewline();
+
 
 	return 0;
 }
