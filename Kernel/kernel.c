@@ -54,8 +54,11 @@ int main()
 	//ncPrint("blabaduba");
 		load_idt();
     //ncPrint("blabaduba");
-		//paintPixel(80,25,155,10,2);
-		paintBackGround();
+		Color color={0,0,0};
+
+		paint_background();
+		print_character(0,0,'m',color);
+
 		ncPrint("[Done]");
   ncNewline();
   ncNewline();

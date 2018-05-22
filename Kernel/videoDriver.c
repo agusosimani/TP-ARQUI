@@ -1,42 +1,61 @@
 #include "font.h"
 #include "videoDriver.h"
 
-static unsigned char ** video_start = (unsigned char**)0x0005C28;
-static unsigned int current_x = 0;
-static unsigned int current_y = SCREEN_HEIGHT-16;
+static unsigned char ** start_video_position = (unsigned char**)0x0005C28;
 
+Color background_color={255,70,0};
 
-int boundedPixel(int x, int y) {
+int out_of_range_pixel(int x, int y) {
 	return (x >= 0) && (x <= SCREEN_WIDTH) && (y >= 0) && (y <= SCREEN_HEIGHT);
 }
 
-unsigned char * getVideoPix(){
-	return *video_start;
+unsigned char * get_video_start(){
+	return *start_video_position;
 }
 
-void paintPixel(int x, int y, char B, char G, char R) {
-	if (!boundedPixel(x, y))
+void paint_pixel(int x, int y, Color color) {
+	if (!out_of_range_pixel(x, y))
 		return;
 
 	unsigned char * pixel_address;
-	pixel_address = getVideoPix() + 3*(x + y*SCREEN_WIDTH);
-	*pixel_address = B;
-	*(pixel_address+1) = G;
-	*(pixel_address+2) = R;
+	pixel_address = get_video_start() + 3*(x + y*SCREEN_WIDTH);
+	*pixel_address = color.blue;
+	*(pixel_address+1) = color.green;
+	*(pixel_address+2) = color.red;
 }
 
-void paintBackGround(){
-	for(int i=0; i<SCREEN_WIDTH; i+=1){
-		for(int j=0; j<SCREEN_HEIGHT; j+=1){
-			paintPixel(i,j,BG_B,BG_G,BG_R);
+void paint_background(){
+	for(int i=0; i<SCREEN_WIDTH; i++){
+		for(int j=0; j<SCREEN_HEIGHT; j++){
+			paint_pixel(i,j,background_color);
 		}
 	}
 }
 
-void paintCharSpace(int current_x, int current_y, char B, char G, char R){
-	for(int i=0; i<8; i++){
-		for(int j=0; j<16; j++){
-			paintPixel(current_x+i, current_y+j, B, G, R);
-		}
+void print_character(int x,int y,char c,Color color){
+	if(c==8){//retroseso
+		//delete();
 	}
+	else if(c==10){
+		//enter();
+	}
+	else{
+		unsigned char * character=pixel_map(c);
+
+		for(int y_aux=0;y_aux<CHAR_HEIGHT;y_aux++){
+			for(int x_aux=0;x_aux<CHAR_WIDTH;x_aux++){
+				char character_aux=character[y_aux];
+				character_aux >>= 8-x_aux;
+
+				if(character_aux%2==1){
+					paint_pixel(x+x_aux,y+y_aux,color);
+				}
+				else{
+					paint_pixel(x+x_aux,y+y_aux,background_color);
+				}
+			}
+		}
+
+	}
+
 }
