@@ -4,5 +4,8 @@
 void timer_handler();
 int ticks_elapsed();
 int seconds_elapsed();
+extern int get_hour();
+extern int get_minutes();
+extern int get_seconds();
 
 #endif
