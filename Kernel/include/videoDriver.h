@@ -3,6 +3,7 @@
 
 #define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 800
+#define MAX_DIGITS 256
 
 
 
@@ -18,11 +19,14 @@ typedef struct Position{
 }Position;
 
 int out_of_range_pixel(Position pos);
+unsigned  char* get_x_resolution();
 unsigned char * get_video_start();
 void paint_pixel(Position pos, Color color);
 void paint_background();
 void print_character(char c,Position pos,Color color);
 void print_string(char * string,Position pos,Color color);
+void print_integer(int number,Position pos,Color color);
+void print_double(float number,Position pos,Color color);
 
 
 // funciones para escribir y leer de video

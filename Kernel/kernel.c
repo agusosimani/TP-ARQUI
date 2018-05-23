@@ -59,9 +59,13 @@ int main()
 
 		paint_background();
 
-		print_string("hola",pos,color);
+		print_string("123",pos,color);
 		print_string("mica",pos,color);
+
 		print_string("capa",pos,color);
+		print_integer(-987,pos,color);
+		print_double(12.2,pos,color);
+
 
 	return 0;
 }
