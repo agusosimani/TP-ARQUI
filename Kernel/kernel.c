@@ -50,6 +50,7 @@ void * initializeKernelBinary()
 
 int main()
 {
+
 		load_idt();
 
 		Color color={0,0,0};
@@ -62,9 +63,11 @@ int main()
 		print_string("123",pos,color);
 		print_string("mica",pos,color);
 
-		print_string("capa",pos,color);
 		print_integer(-987,10,pos,color);
 		print_double(12.2345,pos,color);
+		print_string("resolution",pos,color);
+		//print_integer(x_resolution,10,pos,color);
+
 
 
 	return 0;

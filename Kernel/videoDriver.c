@@ -1,19 +1,23 @@
-#include "font.h"
-#include "videoDriver.h"
+#include <font.h>
+#include <videoDriver.h>
+#include <getData.h>
 
 static unsigned char ** start_video_position = (unsigned char**)0x0005C28;
-static unsigned char * x_resolution = (unsigned char*)0x0005084;
+static int x_resolution;
+static int y_resolution;
 
-unsigned  char* get_x_resolution(){
-	return x_resolution;
+
+void set(){
+	x_resolution = get_x_resolution();
+	y_resolution = get_y_resolution();
 }
 
-
 Color background_color={176,224,230};
+Color font_color={0,0,0};
 Position screen_position={0,0};//CAMBIARLO PARA QUE Y ARRANQUE DE ABAJO CUANDO SEPAMOS SCREEN HEIGHT
 
 int out_of_range_pixel(Position pos) {
-	return (pos.x >= 0) && (pos.x <= SCREEN_WIDTH) && (pos.y >= 0) && (pos.y <= SCREEN_HEIGHT);
+	return (pos.x >= 0) && (pos.x <= x_resolution) && (pos.y >= 0) && (pos.y <= y_resolution);
 }
 
 unsigned char * get_video_start(){
@@ -25,22 +29,23 @@ void paint_pixel(Position pos, Color color) {
 		return;
 
 	unsigned char * pixel_address;
-	pixel_address = get_video_start() + 3*(pos.x + pos.y*SCREEN_WIDTH);
+	pixel_address = get_video_start() + 3*(pos.x + pos.y*x_resolution);
 	*pixel_address = color.blue;
 	*(pixel_address+1) = color.green;
 	*(pixel_address+2) = color.red;
 }
 
 void enter(){
-	//if(screen_position.y==SCREEN_HEIGHT) no more SCREEN
+	//if(screen_position.y==y_resolution) no more SCREEN
 	//subi la pantalla
 	//sino
 	screen_position.y+=CHAR_HEIGHT;
 }
 
 void paint_background(){
-	for(int i=0; i<SCREEN_WIDTH; i++){
-		for(int j=0; j<SCREEN_HEIGHT; j++){
+	set();
+	for(int i=0; i<x_resolution; i++){
+		for(int j=0; j<y_resolution; j++){
 			Position pos={i,j};
 			paint_pixel(pos,background_color);
 		}
