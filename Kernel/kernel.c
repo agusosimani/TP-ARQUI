@@ -63,8 +63,8 @@ int main()
 		print_string("mica",pos,color);
 
 		print_string("capa",pos,color);
-		print_integer(-987,pos,color);
-		print_double(12.2,pos,color);
+		print_integer(-987,10,pos,color);
+		print_double(12.2345,pos,color);
 
 
 	return 0;

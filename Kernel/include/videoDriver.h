@@ -25,7 +25,7 @@ void paint_pixel(Position pos, Color color);
 void paint_background();
 void print_character(char c,Position pos,Color color);
 void print_string(char * string,Position pos,Color color);
-void print_integer(int number,Position pos,Color color);
+void print_integer(int number,int base,Position pos,Color color);
 void print_double(float number,Position pos,Color color);
 
 

@@ -151,10 +151,10 @@ char* int_to_string(int num, char* str,int base)
     return str;
 }
 
-void print_integer(int number,Position pos,Color color){
+void print_integer(int number,int base,Position pos,Color color){
 	//paso number a char* y se lo paso a print_string
 	char str[MAX_DIGITS];
-	char* string_number=int_to_string(number,str,10);
+	char* string_number=int_to_string(number,str,base);
 	print_string(string_number,pos,color);
 	return;
 }
