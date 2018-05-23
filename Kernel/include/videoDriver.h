@@ -12,12 +12,17 @@ typedef struct Color{
   char blue;
 }Color;
 
-int out_of_range_pixel(int x, int y);
-unsigned char * get_video_start();
-void paint_pixel(int x, int y,Color color);
-void paint_background();
-void print_character(int x,int y,char c,Color color);
+typedef struct Position{
+  int x;
+  int y;
+}Position;
 
+int out_of_range_pixel(Position pos);
+unsigned char * get_video_start();
+void paint_pixel(Position pos, Color color);
+void paint_background();
+void print_character(char c,Position pos,Color color);
+void print_string(char * string,Position pos,Color color);
 
 
 // funciones para escribir y leer de video

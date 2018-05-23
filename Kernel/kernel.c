@@ -55,9 +55,19 @@ int main()
 		load_idt();
     //ncPrint("blabaduba");
 		Color color={0,0,0};
+		Position pos={0,0};
+		Position pos1={20,20};
+		Position pos50={20,0};
+
+
 
 		paint_background();
-		print_character(0,0,'m',color);
+		//print_character('m',pos,color);
+		//print_character('i',pos1,color);
+
+		print_string("hola",pos,color);
+		print_string("mica",pos,color);
+		print_string("capa",pos,color);
 
 		ncPrint("[Done]");
   ncNewline();
