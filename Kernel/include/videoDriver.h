@@ -18,11 +18,19 @@ int out_of_range_pixel(Position pos);
 unsigned char * get_video_start();
 void paint_pixel(Position pos, Color color);
 void paint_background();
-void print_character(char c,Position pos,Color color);
-void print_string(char * string,Position pos,Color color);
-void print_integer(int number,int base,Position pos,Color color);
-void print_double(float number,Position pos,Color color);
+void print_character_with_data(char c,Position pos,Color color);
+void print_string_with_data(char * string,Position pos,Color color);
+void print_number_with_data(int number,int base,Position pos,Color color);
+void print_double_with_data(float number,Position pos,Color color);
 void set();
+void print_double(float number);
+void print_integer(int number);
+void print_string(char* string);
+void print_character(char c);
+int getX();
+int getY();
+void enter();
+void move_line();
 
 
 // funciones para escribir y leer de video

@@ -7,15 +7,21 @@ static int x_resolution;
 static int y_resolution;
 
 
+Color background_color={176,224,230};
+Color font_color={0,0,0};
+Position screen_position={0,768-CHAR_HEIGHT*2};
+
 void set(){
 	x_resolution = get_x_resolution();
 	y_resolution = get_y_resolution();
 }
 
-Color background_color={176,224,230};
-Color font_color={0,0,0};
-Position screen_position={0,0};//CAMBIARLO PARA QUE Y ARRANQUE DE ABAJO CUANDO SEPAMOS SCREEN HEIGHT
-
+int getX(){
+	return screen_position.x;
+}
+int getY(){
+	return screen_position.y;
+}
 int out_of_range_pixel(Position pos) {
 	return (pos.x >= 0) && (pos.x <= x_resolution) && (pos.y >= 0) && (pos.y <= y_resolution);
 }
@@ -29,7 +35,7 @@ void paint_pixel(Position pos, Color color) {
 		return;
 
 	unsigned char * pixel_address;
-	pixel_address = get_video_start() + 3*(pos.x + pos.y*x_resolution);
+	pixel_address = get_video_start() +3*(pos.x + pos.y*x_resolution);
 	*pixel_address = color.blue;
 	*(pixel_address+1) = color.green;
 	*(pixel_address+2) = color.red;
@@ -38,8 +44,62 @@ void paint_pixel(Position pos, Color color) {
 void enter(){
 	//if(screen_position.y==y_resolution) no more SCREEN
 	//subi la pantalla
-	//sino
-	screen_position.y+=CHAR_HEIGHT;
+	//sino move esa linea para arriba
+	screen_position.x=0;
+	screen_position.y-=CHAR_HEIGHT;
+}
+
+void move_line(){
+	//print_string("entro");
+	Color pixel_color;
+	unsigned char * pixel_address;
+	Position aux_move_pixel=screen_position;
+	Position aux_get_pixel={0,0};
+	aux_get_pixel.y+=CHAR_HEIGHT;
+	for(;aux_get_pixel.x<x_resolution;aux_get_pixel.x++){
+		for(;aux_get_pixel.y<y_resolution;aux_get_pixel.y++){
+			pixel_address = get_video_start() + 3*(aux_get_pixel.x + aux_get_pixel.y*x_resolution);
+			pixel_color.blue=*(pixel_address);
+			pixel_color.green=*(pixel_address+1);
+			pixel_color.red=*(pixel_address+2);
+			paint_pixel(aux_move_pixel,pixel_color);
+			print_character_with_data('h',aux_move_pixel,font_color);
+
+			aux_move_pixel.y++;
+			//aux_move_pixel.x++;
+
+		}
+	}
+	//print_string_with_data("hi",aux_get_pixel,font_color);
+	/*for(aux_get_pixel.x;aux_get_pixel.x<x_resolution;aux_get_pixel.x++){
+		pixel_address = get_video_start() + 3*(aux_get_pixel.x + aux_get_pixel.y*x_resolution);
+		pixel_color.blue=*(pixel_address);
+		pixel_color.green=*(pixel_address+1);
+		pixel_color.red=*(pixel_address+2);
+		paint_pixel(aux_move_pixel,pixel_color);
+		aux_move_pixel.x++;
+	}
+	Position aux_move_pixel1={0,0};*/
+
+//	print_string_with_data("hi",aux_move_pixel1,font_color);
+
+
+
+	//me posicionno un renglon mas arriba del ultimo escrito
+	/*for(aux_get_pixel.y=screen_position.y;aux_get_pixel.y<=y_resolution-16;aux_get_pixel.y+=CHAR_HEIGHT){
+		for( aux_get_pixel.x=screen_position.x;aux_get_pixel.x<x_resolution;aux_get_pixel.x++){
+			print_string("entro for");
+			pixel_address = get_video_start() + 3*(aux_get_pixel.x + aux_get_pixel.y*x_resolution);
+			pixel_color.blue=*(pixel_address);
+			pixel_color.green=*(pixel_address+1);
+			pixel_color.red=*(pixel_address+2);
+			paint_pixel(aux_move_pixel,pixel_color);
+
+		}
+		aux_move_pixel.x=0;
+		aux_move_pixel.y+=16;
+	}*/
+
 }
 
 void paint_background(){
@@ -52,7 +112,12 @@ void paint_background(){
 	}
 }
 
-void print_character(char c,Position pos,Color color){
+void print_character(char c){
+	print_character_with_data(c,screen_position,font_color);
+	screen_position.x+=CHAR_WIDTH;
+}
+
+void print_character_with_data(char c,Position pos,Color color){
 	if(c==8){
 		//delete();
 	}
@@ -66,7 +131,7 @@ void print_character(char c,Position pos,Color color){
 			for(aux.x=0;aux.x<CHAR_WIDTH;aux.x++){
 				unsigned char character_aux=character[aux.y];
 				character_aux >>= 8-aux.x;
-				Position pos_aux={pos.x+aux.x,pos.y+aux.y+screen_position.y};//le sumo el actual en y para no pisar lineas ya escritas
+				Position pos_aux={pos.x+aux.x,pos.y+aux.y};//le sumo el actual en y para no pisar lineas ya escritas
 				if(character_aux%2==1){
 					paint_pixel(pos_aux,color);
 				}
@@ -75,6 +140,7 @@ void print_character(char c,Position pos,Color color){
 				}
 			}
 		}
+		pos.x+=CHAR_WIDTH;
 	}
 }
 
@@ -88,13 +154,17 @@ int strlen(char * string){
 	}
 
 
-void print_string(char * string,Position pos,Color color){//al terminar un string,hace un enter automatico
+void print_string_with_data(char * string,Position pos,Color color){//al terminar un string,hace un enter automatico
 	int lenght=strlen(string);
 	for(int i=0;i<lenght;i++){
-		print_character(string[i],pos,color);
-		pos.x+=CHAR_WIDTH;
+		print_character_with_data(string[i],pos,color);
+		pos.x+=CHAR_WIDTH;//corro la x acual de la pantalla
 	}
 	enter();
+}
+
+void print_string(char* string){
+	print_string_with_data(string,screen_position,font_color);
 }
 
 void swap(char* a,char* b){
@@ -156,12 +226,16 @@ char* int_to_string(int num, char* str,int base)
     return str;
 }
 
-void print_integer(int number,int base,Position pos,Color color){
+void print_number_with_data(int number,int base,Position pos,Color color){
 	//paso number a char* y se lo paso a print_string
 	char str[MAX_DIGITS];
 	char* string_number=int_to_string(number,str,base);
-	print_string(string_number,pos,color);
+	print_string_with_data(string_number,pos,color);
 	return;
+}
+
+void print_integer(int number){
+	print_number_with_data(number,10,screen_position,font_color);
 }
 
 int n_tu(int number, int count)
@@ -229,9 +303,12 @@ void float_to_string(float f, char r[])
     }
 }
 
-
-void print_double(float number,Position pos,Color color){
+void print_double_with_data(float number,Position pos,Color color){
 	char str[MAX_DIGITS];
 	float_to_string(number,str);
-	print_string(str,pos,color);
+	print_string_with_data(str,pos,color);
+}
+
+void print_double(float number){
+	print_double_with_data(number,screen_position,font_color);
 }

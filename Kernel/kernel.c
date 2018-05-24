@@ -52,20 +52,35 @@ int main()
 {
 
 		load_idt();
-
-		Color color={0,0,0};
 		Position pos={0,0};
-		Position pos1={20,20};
-		Position pos50={20,0};
+		Color font_color={0,0,0};
+
 
 		paint_background();
+		print_string("holasdfg");
+		print_character('a');
+		print_string("123");
+		print_string("mica");
+		move_line();
 
-		print_string("123",pos,color);
-		print_string("mica",pos,color);
+		//print_string_with_data("hi",pos,font_color);
 
-		print_integer(-987,10,pos,color);
-		print_double(12.2345,pos,color);
-		print_string("resolution",pos,color);
+		/*print_character('m');
+		print_character('a');
+		enter();
+		print_double(32.4);
+		print_character('c');
+		enter();
+		print_character('a');
+		print_string("123");
+		print_string("mica");
+
+		print_integer(-987);
+		print_double(12.2345);
+		print_integer(getX());
+
+		print_integer(getY());*/
+
 		//print_integer(x_resolution,10,pos,color);
 
 
