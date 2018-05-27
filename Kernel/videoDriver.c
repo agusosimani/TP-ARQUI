@@ -1,6 +1,6 @@
 #include <font.h>
 #include <videoDriver.h>
-#include <getData.h>
+#include <videoModeInfo.h>
 
 static unsigned char ** start_video_position = (unsigned char**)0x0005C28;
 static int x_resolution;
@@ -19,9 +19,11 @@ void set(){
 int getX(){
 	return screen_position.x;
 }
+
 int getY(){
 	return screen_position.y;
 }
+
 int out_of_range_pixel(Position pos) {
 	return (pos.x >= 0) && (pos.x <= x_resolution) && (pos.y >= 0) && (pos.y <= y_resolution);
 }
@@ -144,7 +146,6 @@ void print_character_with_data(char c,Position pos,Color color){
 	}
 }
 
-
 int strlen(char * string){
 	int i=0;
 	while(string[i]!=0){
@@ -152,7 +153,6 @@ int strlen(char * string){
 	}
 	return i;
 	}
-
 
 void print_string_with_data(char * string,Position pos,Color color){//al terminar un string,hace un enter automatico
 	int lenght=strlen(string);
@@ -174,8 +174,7 @@ void swap(char* a,char* b){
 	return;
 }
 
-void reverse(char str[], int length)
-{
+void reverse(char str[], int length) {
     int start = 0;
     int end = length-1 ;
     while (start < end)
@@ -186,8 +185,7 @@ void reverse(char str[], int length)
     }
 }
 
-char* int_to_string(int num, char* str,int base)
-{
+char* int_to_string(int num, char* str,int base) {
     int i = 0;
     int isNegative = 0;//no es negativo
     /* Handle 0 explicitely, otherwise empty string is printed for 0 */
@@ -238,8 +236,7 @@ void print_integer(int number){
 	print_number_with_data(number,10,screen_position,font_color);
 }
 
-int n_tu(int number, int count)
-{
+int n_tu(int number, int count) {
     int result = 1;
     while(count-- > 0)
         result *= number;
@@ -248,8 +245,7 @@ int n_tu(int number, int count)
 }
 
 /*** Convert float to string ***/
-void float_to_string(float f, char r[])
-{
+void float_to_string(float f, char r[]) {
     long long int length, length2, i, number, position, sign;
     float number2;
 

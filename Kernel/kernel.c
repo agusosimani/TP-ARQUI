@@ -2,7 +2,6 @@
 #include <string.h>
 #include <lib.h>
 #include <moduleLoader.h>
-#include <naiveConsole.h>
 #include <idtLoader.h>
 #include <videoDriver.h>
 
@@ -45,23 +44,20 @@ void * initializeKernelBinary()
 
 	loadModules(&endOfKernelBinary, moduleAddresses);
 		clearBSS(&bss, &endOfKernel - &bss);
+        load_idt();
 	return getStackBase();
 }
 
 int main()
 {
-
-		load_idt();
-		Position pos={0,0};
-		Color font_color={0,0,0};
-
-
 		paint_background();
-		print_string("holasdfg");
-		print_character('a');
-		print_string("123");
-		print_string("mica");
-		move_line();
+
+        print_string("holasdfg");
+        print_character('a');
+        print_string("123");
+        print_string("mica");
+
+        ((EntryPoint)sampleCodeModuleAddress)();
 
 		//print_string_with_data("hi",pos,font_color);
 
