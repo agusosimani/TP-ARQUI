@@ -7,7 +7,7 @@ systemCallHandler:
     push rbp
     mov rbp, rsp
 
-    call systemCallHandler
+    call systemCallDispatcher
 
     mov rsp, rbp
     pop rbp

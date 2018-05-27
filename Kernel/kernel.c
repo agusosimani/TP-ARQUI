@@ -44,12 +44,12 @@ void * initializeKernelBinary()
 
 	loadModules(&endOfKernelBinary, moduleAddresses);
 		clearBSS(&bss, &endOfKernel - &bss);
-        load_idt();
 	return getStackBase();
 }
 
 int main()
 {
+        load_idt();
 		paint_background();
 
         print_string("holasdfg");
@@ -57,8 +57,10 @@ int main()
         print_string("123");
         print_string("mica");
 
-        ((EntryPoint)sampleCodeModuleAddress)();
+        void (*module)();
+        module = sampleCodeModuleAddress;
 
+        module();
 		//print_string_with_data("hi",pos,font_color);
 
 		/*print_character('m');
@@ -78,8 +80,6 @@ int main()
 		print_integer(getY());*/
 
 		//print_integer(x_resolution,10,pos,color);
-
-
 
 	return 0;
 }
