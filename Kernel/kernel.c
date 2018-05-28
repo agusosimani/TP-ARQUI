@@ -57,23 +57,7 @@ int main()
         print_string("123");
 				move_line();
 
-        //print_string("mica");
-				print_integer(getY());
-				move_line();
-				print_integer(getX());
-				move_line();
-				print_character('b');
-				print_character('v');
-				//move_line();
-				print_string("nuevo");
-				move_line();
-				print_string("abajo");
-
-
-      void (*module)();
-      module = sampleCodeModuleAddress;
-
-        module();
+		((EntryPoint)sampleCodeModuleAddress)();
 		//print_string_with_data("hi",pos,font_color);
 
 		/*print_character('m');
