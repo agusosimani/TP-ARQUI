@@ -91,7 +91,6 @@ _cli:
 	cli
 	ret
 
-
 _sti:
 	sti
 	ret

@@ -49,11 +49,11 @@ void * initializeKernelBinary()
 
 int main()
 {
-        load_idt();
+    load_idt();
 
-		paint_background();
+	paint_background();
 
-		print_integer(((EntryPoint)sampleCodeModuleAddress)());
+	((EntryPoint)sampleCodeModuleAddress)();
 
 	return 0;
 }

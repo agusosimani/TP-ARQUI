@@ -4,15 +4,15 @@ extern systemCallDispatcher
 section .text
 
 systemCallHandler:
-    pushStateNoRax
+    pushState
 
     call systemCallDispatcher
 
-    popStateNoRax
+    popState
 
     iretq
 
-%macro pushStateNoRax 0
+%macro pushState 0
 	push rbx
 	push rcx
 	push rdx
@@ -29,7 +29,7 @@ systemCallHandler:
 	push r15
 %endmacro
 
-%macro popStateNoRax 0
+%macro popState 0
 	pop r15
 	pop r14
 	pop r13

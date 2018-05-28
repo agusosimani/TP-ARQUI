@@ -1,6 +1,6 @@
 #include <library.h>
 
 int main() {
-	//sys_print_integer(90);
+	//START SHELL
 	return 1;
 }
