@@ -53,7 +53,7 @@ int main()
 
 		paint_background();
 
-		((EntryPoint)sampleCodeModuleAddress)();
+		print_integer(((EntryPoint)sampleCodeModuleAddress)());
 
 	return 0;
 }
