@@ -53,9 +53,7 @@ int main()
 				paint_background();
 
         print_string("holasdfg");
-				move_line();
         print_string("123");
-				move_line();
 
 		((EntryPoint)sampleCodeModuleAddress)();
 		//print_string_with_data("hi",pos,font_color);

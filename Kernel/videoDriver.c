@@ -142,11 +142,12 @@ void print_string_with_data(char * string,Position pos,Color color){//al termina
 	screen_position.y-=CHAR_HEIGHT;
 	write_position.x=0;
 	write_position.y=768-CHAR_HEIGHT*2;
-
+	move_line();
 }
 
 void print_string(char* string){
 	print_string_with_data(string,write_position,font_color);
+
 }
 
 void swap(char* a,char* b){
