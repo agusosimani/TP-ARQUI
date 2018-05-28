@@ -1,6 +1,8 @@
 #include <library.h>
 
 int main() {
-	sys_print_string("anda la syscall");
+	char * string = "anda la syscall";
+	sys_print_integer(string);
+	sys_print_string(string);
 	return 1;
 }
