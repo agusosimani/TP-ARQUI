@@ -1,7 +1,6 @@
 #include <library.h>
 
 int main() {
-	sys_print_integer(90);
-	sys_print_string("entre");
+	//sys_print_integer(90);
 	return 1;
 }

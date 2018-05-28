@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-extern void systemCall(uint64_t edi, uint64_t esi, uint64_t edx, uint64_t ecx);
+extern void systemCall(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx);
 
 void sys_print_string(char* string);
 void sys_print_integer(int num);
