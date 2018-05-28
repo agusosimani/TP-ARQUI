@@ -1,6 +1,7 @@
 #include <font.h>
 #include <videoDriver.h>
 #include <videoModeInfo.h>
+#include <stdint.h>
 
 static unsigned char ** start_video_position = (unsigned char**)0x0005C28;
 static int x_resolution;
@@ -10,11 +11,19 @@ static int y_resolution;
 Color background_color={176,224,230};
 Color font_color={0,0,0};
 Position screen_position={0,768-CHAR_HEIGHT*2};
+Position write_position={0,768-CHAR_HEIGHT*2};
+
+//borrar
+
+
+
+//no borrar
 
 void set(){
 	x_resolution = get_x_resolution();
 	y_resolution = get_y_resolution();
 }
+
 
 int getX(){
 	return screen_position.x;
@@ -43,65 +52,32 @@ void paint_pixel(Position pos, Color color) {
 	*(pixel_address+2) = color.red;
 }
 
-void enter(){
+/*void enter(){es lo mismo que move_line
 	//if(screen_position.y==y_resolution) no more SCREEN
 	//subi la pantalla
 	//sino move esa linea para arriba
 	screen_position.x=0;
 	screen_position.y-=CHAR_HEIGHT;
-}
+}*/
 
 void move_line(){
-	//print_string("entro");
+	write_position.x=0;
+	write_position.y=768-CHAR_HEIGHT*2;
 	Color pixel_color;
 	unsigned char * pixel_address;
-	Position aux_move_pixel=screen_position;
-	Position aux_get_pixel={0,0};
-	aux_get_pixel.y+=CHAR_HEIGHT;
-	for(;aux_get_pixel.x<x_resolution;aux_get_pixel.x++){
-		for(;aux_get_pixel.y<y_resolution;aux_get_pixel.y++){
-			pixel_address = get_video_start() + 3*(aux_get_pixel.x + aux_get_pixel.y*x_resolution);
+	for(int x=0;x<x_resolution;x++){
+		for(int y=CHAR_HEIGHT;y<y_resolution;y++){
+			Position aux={x,y};
+			pixel_address = get_video_start() + 3*(x + y*x_resolution);
 			pixel_color.blue=*(pixel_address);
 			pixel_color.green=*(pixel_address+1);
 			pixel_color.red=*(pixel_address+2);
-			paint_pixel(aux_move_pixel,pixel_color);
-			print_character_with_data('h',aux_move_pixel,font_color);
-
-			aux_move_pixel.y++;
-			//aux_move_pixel.x++;
-
+			aux.y-=CHAR_HEIGHT;
+			paint_pixel(aux,pixel_color);
 		}
 	}
-	//print_string_with_data("hi",aux_get_pixel,font_color);
-	/*for(aux_get_pixel.x;aux_get_pixel.x<x_resolution;aux_get_pixel.x++){
-		pixel_address = get_video_start() + 3*(aux_get_pixel.x + aux_get_pixel.y*x_resolution);
-		pixel_color.blue=*(pixel_address);
-		pixel_color.green=*(pixel_address+1);
-		pixel_color.red=*(pixel_address+2);
-		paint_pixel(aux_move_pixel,pixel_color);
-		aux_move_pixel.x++;
-	}
-	Position aux_move_pixel1={0,0};*/
-
-//	print_string_with_data("hi",aux_move_pixel1,font_color);
-
-
-
-	//me posicionno un renglon mas arriba del ultimo escrito
-	/*for(aux_get_pixel.y=screen_position.y;aux_get_pixel.y<=y_resolution-16;aux_get_pixel.y+=CHAR_HEIGHT){
-		for( aux_get_pixel.x=screen_position.x;aux_get_pixel.x<x_resolution;aux_get_pixel.x++){
-			print_string("entro for");
-			pixel_address = get_video_start() + 3*(aux_get_pixel.x + aux_get_pixel.y*x_resolution);
-			pixel_color.blue=*(pixel_address);
-			pixel_color.green=*(pixel_address+1);
-			pixel_color.red=*(pixel_address+2);
-			paint_pixel(aux_move_pixel,pixel_color);
-
-		}
-		aux_move_pixel.x=0;
-		aux_move_pixel.y+=16;
-	}*/
-
+	screen_position.y-=CHAR_HEIGHT;
+	screen_position.x=0;
 }
 
 void paint_background(){
@@ -115,8 +91,9 @@ void paint_background(){
 }
 
 void print_character(char c){
-	print_character_with_data(c,screen_position,font_color);
+	print_character_with_data(c,write_position,font_color);
 	screen_position.x+=CHAR_WIDTH;
+	write_position.x+=CHAR_WIDTH;
 }
 
 void print_character_with_data(char c,Position pos,Color color){
@@ -124,7 +101,7 @@ void print_character_with_data(char c,Position pos,Color color){
 		//delete();
 	}
 	else if(c==10){
-		enter();
+		move_line();
 	}
 	else{
 		unsigned char * character=pixel_map(c);
@@ -155,16 +132,21 @@ int strlen(char * string){
 	}
 
 void print_string_with_data(char * string,Position pos,Color color){//al terminar un string,hace un enter automatico
+//move_line();
 	int lenght=strlen(string);
 	for(int i=0;i<lenght;i++){
 		print_character_with_data(string[i],pos,color);
 		pos.x+=CHAR_WIDTH;//corro la x acual de la pantalla
 	}
-	enter();
+	screen_position.x=0;
+	screen_position.y-=CHAR_HEIGHT;
+	write_position.x=0;
+	write_position.y=768-CHAR_HEIGHT*2;
+
 }
 
 void print_string(char* string){
-	print_string_with_data(string,screen_position,font_color);
+	print_string_with_data(string,write_position,font_color);
 }
 
 void swap(char* a,char* b){
@@ -233,7 +215,7 @@ void print_number_with_data(int number,int base,Position pos,Color color){
 }
 
 void print_integer(int number){
-	print_number_with_data(number,10,screen_position,font_color);
+	print_number_with_data(number,10,write_position,font_color);
 }
 
 int n_tu(int number, int count) {
@@ -303,8 +285,9 @@ void print_double_with_data(float number,Position pos,Color color){
 	char str[MAX_DIGITS];
 	float_to_string(number,str);
 	print_string_with_data(str,pos,color);
+
 }
 
 void print_double(float number){
-	print_double_with_data(number,screen_position,font_color);
+	print_double_with_data(number,write_position,font_color);
 }

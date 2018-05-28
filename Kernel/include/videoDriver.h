@@ -1,7 +1,9 @@
 #ifndef VIDEODRIVER_H
 #define VIDEODRIVER_H
-
 #define MAX_DIGITS 256
+
+#include <stdint.h>
+
 
 typedef struct Color{
   char red;
@@ -29,7 +31,6 @@ void print_string(char* string);
 void print_character(char c);
 int getX();
 int getY();
-void enter();
 void move_line();
 
 

@@ -50,15 +50,28 @@ void * initializeKernelBinary()
 int main()
 {
         load_idt();
-		paint_background();
+				paint_background();
 
         print_string("holasdfg");
-        print_character('a');
+				move_line();
         print_string("123");
-        print_string("mica");
+				move_line();
 
-        void (*module)();
-        module = sampleCodeModuleAddress;
+        //print_string("mica");
+				print_integer(getY());
+				move_line();
+				print_integer(getX());
+				move_line();
+				print_character('b');
+				print_character('v');
+				//move_line();
+				print_string("nuevo");
+				move_line();
+				print_string("abajo");
+
+
+      void (*module)();
+      module = sampleCodeModuleAddress;
 
         module();
 		//print_string_with_data("hi",pos,font_color);
