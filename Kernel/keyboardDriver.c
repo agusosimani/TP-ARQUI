@@ -132,10 +132,7 @@ static int print_flag=0;
 static int count=0;
 
 void keyboard_handler(){
-    print_string("entre");
     unsigned char code = scan_key();
-
-
 
     if (code & 0x80) //bit 7 is set, a key was just released
     {

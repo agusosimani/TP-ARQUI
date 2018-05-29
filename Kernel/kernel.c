@@ -36,7 +36,6 @@ void * getStackBase()
 
 void * initializeKernelBinary()
 {
-
 	void * moduleAddresses[] = {
 		sampleCodeModuleAddress,
 		sampleDataModuleAddress
@@ -52,6 +51,8 @@ int main()
     load_idt();
 
 	paint_background();
+
+	while(1);
 
 	((EntryPoint)sampleCodeModuleAddress)();
 
