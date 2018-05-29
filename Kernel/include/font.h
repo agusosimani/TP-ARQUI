@@ -2,9 +2,12 @@
 #define FONT_H
 
 unsigned char * pixel_map(int c);
+unsigned char * clock_digits_map(int number);
 
 #define CHAR_WIDTH 8
 #define CHAR_HEIGHT 16
+#define CLOCK_DIGIT_HEIGHT 42
+#define CLOCK_DIGIT_WIDTH 64
 
 #define ________ 0x00
 #define _______X 0x01
