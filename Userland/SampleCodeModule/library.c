@@ -8,5 +8,4 @@ void sys_print_string(char* string) {
 
 void sys_print_integer(int num) {
     systemCall(1,num,0,0);
-    return 900;
 }

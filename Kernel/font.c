@@ -3973,6 +3973,6 @@ unsigned char clock_digits[] = {
 		________,________,________,________,________,________,________,________,
 };
 
-unsigned char * clock_digits_map(int number) { // colon represents number 11
+unsigned char * clock_digits_map(int number) { // colon represents number 10
 	return clock_digits + CLOCK_DIGIT_HEIGHT * 8 * number;
 }

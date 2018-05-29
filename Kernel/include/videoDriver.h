@@ -32,9 +32,6 @@ void print_character(char c);
 int getX();
 int getY();
 void move_line();
-
-
-// funciones para escribir y leer de video
-
+void display_time(int hour, int minutes, int seconds, Color color);
 
 #endif //VIDEODRIVER_H

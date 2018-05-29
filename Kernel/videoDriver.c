@@ -24,7 +24,6 @@ void set(){
 	y_resolution = get_y_resolution();
 }
 
-
 int getX(){
 	return screen_position.x;
 }
@@ -147,14 +146,12 @@ void print_string_with_data(char * string,Position pos,Color color){//al termina
 
 void print_string(char* string){
 	print_string_with_data(string,write_position,font_color);
-
 }
 
 void swap(char* a,char* b){
 	char aux=*a;
 	*a=*b;
 	*b=aux;
-	return;
 }
 
 void reverse(char str[], int length) {
@@ -292,3 +289,61 @@ void print_double_with_data(float number,Position pos,Color color){
 void print_double(float number){
 	print_double_with_data(number,write_position,font_color);
 }
+
+//FUNCTIONS TO PRINT CLOCK
+
+Position print_digit(int number, Color color, Position position) {
+	unsigned char * digit = clock_digits_map(number);
+    Position posaux = position;
+	unsigned char pixel;
+
+	for (int y=0; y<CLOCK_DIGIT_HEIGHT; y++) {
+		for (int j=0; j<8; j++) {
+			pixel = digit[(y*8)+j];
+			for (int x=0; x<8; x++) {
+				Position to_write = {position.x + x, position.y + y};
+				if (((pixel >> (8-x))%2)!=0) {
+					paint_pixel(to_write,color);
+				} else {
+					paint_pixel(to_write,background_color);
+				}
+			}
+			position.x += 8;
+		}
+		position.x = posaux.x;
+	}
+	posaux.x += (CLOCK_DIGIT_WIDTH+15);
+	return posaux;
+}
+
+
+
+void display_time(int hour, int minutes, int seconds, Color color) {
+
+	Position display_position = {x_resolution/2 - 309, y_resolution/2 -21};
+
+	int left, right;
+
+	//print hour
+	right = hour%10;
+	left = hour/10;
+	display_position = print_digit(left,color,display_position);
+	display_position = print_digit(right,color,display_position);
+	display_position = print_digit(10,color,display_position); //colon
+
+	//print minutes
+	right = minutes%10;
+	left = minutes/10;
+
+	display_position = print_digit(left,color,display_position);
+	display_position = print_digit(right,color,display_position);
+	display_position = print_digit(10,color,display_position); //colon
+
+	//print seconds
+	right = seconds%10;
+	left = seconds/10;
+
+	display_position = print_digit(left,color,display_position);
+	display_position = print_digit(right,color,display_position);
+}
+
