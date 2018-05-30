@@ -186,13 +186,19 @@ void put_character(char character){
     buffer[w_index]=character;
     w_index=(w_index+1)%BUFFERSIZE;
     if(count==BUFFERSIZE){
-        r_index=(r_index+1)&BUFFERSIZE;
+        r_index=(r_index+1)%BUFFERSIZE;
     }
     else
         count++;
 }
 
 
-//void get_char(){
-//
-//}
+void get_char(char * character){
+    if(count==0){
+        *character=0;
+        return;
+    }
+    *character=buffer[r_index];
+    count--;
+    r_index=(r_index+1)%BUFFERSIZE;
+}
