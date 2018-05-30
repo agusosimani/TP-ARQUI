@@ -23,7 +23,7 @@ void paint_pixel(Position pos, Color color);
 void paint_background();
 void print_character_with_data(char c,Position pos,Color color);
 void print_string_with_data(char * string,Position pos,Color color);
-void print_number_with_data(int number,int base,Position pos,Color color);
+void print_number_with_data(uint64_t  number,int base,Position pos,Color color);
 void print_double_with_data(float number,Position pos,Color color);
 void set();
 void print_double(float number);

@@ -284,7 +284,7 @@ ret
 
 
 ; -----------------------------------------------------------------------------
-; os_int_to_string -- Convert a binary interger into an string string
+; os_num_to_string -- Convert a binary interger into an string string
 ;  IN:	RAX = binary integer
 ;	RDI = location to store string
 ; OUT:	RDI = pointer to end of string
@@ -293,7 +293,7 @@ ret
 ; string needs to be able to store at least 21 characters (20 for the number
 ; and 1 for the string terminator).
 ; Adapted from http://www.cs.usfca.edu/~cruse/cs210s09/rax2uint.s
-os_int_to_string:
+os_num_to_string:
 	push rdx
 	push rcx
 	push rbx
@@ -301,19 +301,19 @@ os_int_to_string:
 
 	mov rbx, 10				; base of the decimal system
 	xor rcx, rcx				; number of digits generated
-os_int_to_string_next_divide:
+os_num_to_string_next_divide:
 	xor rdx, rdx				; RAX extended to (RDX,RAX)
 	div rbx					; divide by the number-base
 	push rdx				; save remainder on the stack
 	inc rcx					; and count this remainder
 	cmp rax, 0x0				; was the quotient zero?
-	jne os_int_to_string_next_divide	; no, do another division
-os_int_to_string_next_digit:
+	jne os_num_to_string_next_divide	; no, do another division
+os_num_to_string_next_digit:
 	pop rdx					; else pop recent remainder
 	add dl, '0'				; and convert to a numeral
 	mov [rdi], dl				; store to memory-buffer
 	inc rdi
-	loop os_int_to_string_next_digit	; again for other remainders
+	loop os_num_to_string_next_digit	; again for other remainders
 	mov al, 0x00
 	stosb					; Store the null terminator at the end of the string
 

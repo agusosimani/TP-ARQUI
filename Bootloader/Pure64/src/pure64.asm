@@ -494,19 +494,19 @@ endmemcalc:
 	xor rax, rax
 	mov ax, [cpu_speed]
 	mov rdi, speedtempstring
-	call os_int_to_string
+	call os_num_to_string
 
 ; Convert CPU amount value to string
 	xor rax, rax
 	mov ax, [cpu_activated]
 	mov rdi, cpu_amount_string
-	call os_int_to_string
+	call os_num_to_string
 
 ; Convert RAM amount value to string
 	xor rax, rax
 	mov eax, [mem_amount]
 	mov rdi, memtempstring
-	call os_int_to_string
+	call os_num_to_string
 
 ; Build the infomap
 	xor rdi, rdi

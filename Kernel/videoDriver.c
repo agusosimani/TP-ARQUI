@@ -53,21 +53,14 @@ void paint_pixel(Position pos, Color color) {
 	*(pixel_address+2) = color.red;
 }
 
-/*void enter(){es lo mismo que move_line
-	//if(screen_position.y==y_resolution) no more SCREEN
-	//subi la pantalla
-	//sino move esa linea para arriba
-	screen_position.x=0;
-	screen_position.y-=CHAR_HEIGHT;
-}*/
 
 void move_line(){
 	write_position.x=0;
-	write_position.y=768-CHAR_HEIGHT*2;
+	write_position.y=768-CHAR_HEIGHT;
 	Color pixel_color;
 	unsigned char * pixel_address;
 	for(int x=screen_position.x;x<x_resolution;x++){
-		for(int y=screen_position.y-CHAR_HEIGHT;y<y_resolution;y++){
+		for(int y=screen_position.y;y<y_resolution;y++){
 			Position aux={x,y};
 			pixel_address = get_video_start() + 3*(x + y*x_resolution);
 			pixel_color.blue=*(pixel_address);
@@ -79,6 +72,14 @@ void move_line(){
 	}
 	screen_position.y-=CHAR_HEIGHT;
 	screen_position.x=0;
+
+	//clear last renglon
+	/*for(int x=0;x<10;x++){
+		for(int y=752;y<768;y++){
+			Position aux={x,y};
+			paint_pixel(aux,background_color);
+		}
+	}*/
 }
 
 void paint_background(){
@@ -133,16 +134,13 @@ int strlen(char * string){
 	}
 
 void print_string_with_data(char * string,Position pos,Color color){//al terminar un string,hace un enter automatico
-//move_line();
 	int lenght=strlen(string);
 	for(int i=0;i<lenght;i++){
 		print_character_with_data(string[i],pos,color);
 		pos.x+=CHAR_WIDTH;//corro la x acual de la pantalla
 	}
-	screen_position.x=0;
-	screen_position.y-=CHAR_HEIGHT;
 	write_position.x=0;
-	write_position.y=768-CHAR_HEIGHT*2;
+	write_position.y=768-CHAR_HEIGHT;
 	move_line();
 }
 
@@ -150,7 +148,7 @@ void print_string(char* string){
 	print_string_with_data(string,write_position,font_color);
 }
 
-void swap(char* a,char* b){
+/*void swap(char* a,char* b){
 	char aux=*a;
 	*a=*b;
 	*b=aux;
@@ -165,12 +163,45 @@ void reverse(char str[], int length) {
         start++;
         end--;
     }
-}
+}*/
 
-char* int_to_string(int num, char* str,int base) {
-    int i = 0;
+int num_to_string(uint64_t  value, char* buffer,int base)	{
+		char *p = buffer;
+		char *p1, *p2;
+		uint32_t digits = 0;
+
+		//Calculate characters for each digit
+		do
+		{
+			uint32_t remainder = value % base;
+			*p++ = (remainder < 10) ? remainder + '0' : remainder + 'A' - 10;
+			digits++;
+		}
+		while (value /= base);
+
+		// Terminate string in buffer.
+		*p = 0;
+
+		//Reverse string in buffer.
+		p1 = buffer;
+		p2 = p - 1;
+		while (p1 < p2)
+		{
+			char tmp = *p1;
+			*p1 = *p2;
+			*p2 = tmp;
+			p1++;
+			p2--;
+		}
+
+		return digits;
+	}
+
+
+
+		/*int i = 0;
     int isNegative = 0;//no es negativo
-    /* Handle 0 explicitely, otherwise empty string is printed for 0 */
+    Handle 0 explicitely, otherwise empty string is printed for 0
     if (num == 0)
     {
         str[i++] = '0';
@@ -204,13 +235,13 @@ char* int_to_string(int num, char* str,int base) {
     reverse(str, i);
 
     return str;
-}
+}*/
 
-void print_number_with_data(int number,int base,Position pos,Color color){
+void print_number_with_data(uint64_t  number,int base,Position pos,Color color){
 	//paso number a char* y se lo paso a print_string
-	char str[MAX_DIGITS];
-	char* string_number=int_to_string(number,str,base);
-	print_string_with_data(string_number,pos,color);
+	char str_number[MAX_DIGITS];
+	num_to_string(number,str_number,base);
+	print_string_with_data(str_number,pos,color);
 	return;
 }
 
@@ -280,6 +311,7 @@ void float_to_string(float f, char r[]) {
         }
     }
 }
+
 
 void print_double_with_data(float number,Position pos,Color color){
 	char str[MAX_DIGITS];

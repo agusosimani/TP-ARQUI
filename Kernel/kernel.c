@@ -50,7 +50,7 @@ int main()
 {
     load_idt();
 
-	paint_background();
+	
 
 	((EntryPoint)sampleCodeModuleAddress)();
 
