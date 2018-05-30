@@ -3,8 +3,8 @@
 
 void shell() {
     sys_print_string("Write a command");
-    sys_print_char('>');
-    sys_print_char(' ');
+    put_char('>');
+    put_char(' ');
 
     //if el comando es time..
     display_time();
@@ -18,8 +18,8 @@ void display_time() {
 
     sys_clear();
     sys_print_string("Press 'c' to change color of the digital clock");
-    sys_print_char(' ');
-    sys_print_char(' ');
+    put_char(' ');
+    put_char(' ');
     sys_print_string("Press 'q' to quit");
 
     int running = 1;
@@ -32,13 +32,12 @@ void display_time() {
         get_char(c);
 
         if (*c == 'c') {
-            color ++;
+            color++;
+
         } else if (*c == 'q') {
             running = 0;
         }
     }
-
-    return;
 }
 
 void test(int id) {

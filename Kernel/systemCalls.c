@@ -21,6 +21,7 @@ void systemCallDispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx
             paint_background();
             break;
         case 5:
-            get_char((char*)rsi);
+            get_character((char*)rsi);
+            break;
     }
 }

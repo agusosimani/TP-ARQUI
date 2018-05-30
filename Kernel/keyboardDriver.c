@@ -191,8 +191,7 @@ void put_character(char character){
         count++;
 }
 
-
-void get_char(char * character){
+void get_character(char * character){
     if(count==0){
         *character=0;
         return;

@@ -10,7 +10,7 @@ void sys_print_integer(int num) {
     systemCall(1,num,0,0);
 }
 
-void sys_print_char(char c) {
+void put_char(char c) {
     systemCall(2,c,0,0);
 }
 
