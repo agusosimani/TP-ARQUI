@@ -11,20 +11,10 @@ static int y_resolution;
 
 Color background_color={176,224,230};
 Color font_color={0,0,0};
-<<<<<<< Updated upstream
+
 Position screen_position={0,768-CHAR_HEIGHT*2};
-Position write_position={0,768-CHAR_HEIGHT*2};
-Color colors[] = {{0,0,0},{66,134,244},{244,66,244},{66,244,92},{170,66,244},{244,75,66},{235,244,66},{78,66,244}};
-=======
-Position screen_position={0,768-CHAR_HEIGHT};
 Position write_position={0,768-CHAR_HEIGHT};
->>>>>>> Stashed changes
-
-//borrar
-
-
-
-//no borrar
+Color colors[] = {{0,0,0},{66,134,244},{244,66,244},{66,244,92},{170,66,244},{244,75,66},{235,244,66},{78,66,244}};
 
 void set(){
 	x_resolution = get_x_resolution();
@@ -79,12 +69,12 @@ void move_line(){
 	screen_position.x=0;
 
 	//clear last renglon
-	/*for(int x=0;x<10;x++){
-		for(int y=752;y<768;y++){
+	for(int x=0;x<x_resolution;x++){
+		for(int y=y_resolution-CHAR_HEIGHT;y<y_resolution;y++){
 			Position aux={x,y};
 			paint_pixel(aux,background_color);
 		}
-	}*/
+	}
 }
 
 void paint_background(){
@@ -153,22 +143,6 @@ void print_string(char* string){
 	print_string_with_data(string,write_position,font_color);
 }
 
-/*void swap(char* a,char* b){
-	char aux=*a;
-	*a=*b;
-	*b=aux;
-}
-
-void reverse(char str[], int length) {
-    int start = 0;
-    int end = length-1 ;
-    while (start < end)
-    {
-        swap((str+start), (str+end));
-        start++;
-        end--;
-    }
-}*/
 
 int num_to_string(uint64_t  value, char* buffer,int base)	{
 		char *p = buffer;
@@ -201,46 +175,6 @@ int num_to_string(uint64_t  value, char* buffer,int base)	{
 
 		return digits;
 	}
-
-
-
-		/*int i = 0;
-    int isNegative = 0;//no es negativo
-    Handle 0 explicitely, otherwise empty string is printed for 0
-    if (num == 0)
-    {
-        str[i++] = '0';
-        str[i] = '\0';
-        return str;
-    }
-
-    // In standard itoa(), negative numbers are handled only with
-    // base 10. Otherwise numbers are considered unsigned.
-    if (num < 0 && base == 10)
-    {
-        isNegative = 1;
-        num = -num;
-    }
-
-    // Process individual digits
-    while (num != 0)
-    {
-        int rem = num % base;
-        str[i++] = (rem > 9)? (rem-10) + 'a' : rem + '0';
-        num = num/base;
-    }
-
-    // If number is negative, append '-'
-    if (isNegative==1)
-        str[i++] = '-';
-
-    str[i] = '\0'; // Append string terminator
-
-    // Reverse the string
-    reverse(str, i);
-
-    return str;
-}*/
 
 void print_number_with_data(uint64_t  number,int base,Position pos,Color color){
 	//paso number a char* y se lo paso a print_string
