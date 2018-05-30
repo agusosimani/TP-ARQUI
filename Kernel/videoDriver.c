@@ -11,6 +11,7 @@ static int y_resolution;
 
 Color background_color={176,224,230};
 Color font_color={0,0,0};
+
 Position screen_position={0,768-CHAR_HEIGHT*2};
 Position write_position={0,768-CHAR_HEIGHT};
 Color colors[] = {{0,0,0},{66,134,244},{244,66,244},{66,244,92},{170,66,244},{244,75,66},{235,244,66},{78,66,244}};
@@ -53,7 +54,7 @@ void move_line(){
 	write_position.y=768-CHAR_HEIGHT;
 	Color pixel_color;
 	unsigned char * pixel_address;
-	for(int x=screen_position.x;x<x_resolution;x++){
+	for(int x=0;x<x_resolution;x++){
 		for(int y=screen_position.y;y<y_resolution;y++){
 			Position aux={x,y};
 			pixel_address = get_video_start() + 3*(x + y*x_resolution);
@@ -142,7 +143,7 @@ void print_string_with_data(char * string,Position pos,Color color){//al termina
 	}
 	write_position.x=0;
 	write_position.y=768-CHAR_HEIGHT;
-	move_line();
+	//move_line();
 }
 
 void print_string(char* string){

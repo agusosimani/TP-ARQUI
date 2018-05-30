@@ -14,6 +14,7 @@ void sys_display_time(int color);
 void sys_clear();
 void get_char(char* c);
 void beep();
+void printf(char* fmt, ...);
 
 //Compares 2 strings. Returns 0 if they are equal
 int strcmp(char * s1, char * s2);

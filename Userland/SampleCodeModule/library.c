@@ -24,8 +24,37 @@ void get_char(char* c) {
     systemCall(5,c,0,0);
 }
 
-static char *convert(unsigned int num, int base)
-{
+void beep() {
+  systemCall(6,0,0,0);
+}
+
+//Compares 2 strings. Returns 0 if they are equal
+int strcmp(char * s1, char * s2){
+    while(*s1 && *s2 && *s1 == *s2){
+        s1++;
+        s2++;
+    }
+    return *s1 - *s2;
+}
+
+int strncmp(char * s, char * t, unsigned int n) {
+    int i;
+    for (i = 0; i < n-1 && s[i] != '\0' && t[i] != '\0' && s[i] == t[i]; i++)
+        ;
+    return s[i]-t[i];
+}
+
+//Returns true(!= 0) if start is an initial substring of str and 0 if not
+int starts_with(char * str, char * start){
+    while(*str != 0 && *start != 0){
+        if(*(str++) != *(start++)){
+            return 0;
+        }
+    }
+    return *start == 0;
+}
+
+static char *convert(unsigned int num, int base){
     static char Representation[]= "0123456789ABCDEF";
     static char buffer[50];
     char *ptr;
@@ -53,7 +82,7 @@ void vprintf(char *fmt, va_list arg){
     {
         while( *traverse != '%' && *traverse != '\0')
         {
-            sys_print_string(*traverse);
+            put_char(*traverse);
             traverse++;
         }
 
@@ -103,35 +132,4 @@ void printf(char* fmt, ...)
     //Cerrando la lista variable
     va_end(arg);
 
-}
-
-
-void beep() {
-  systemCall(6,0,0,0);
-}
-
-//Compares 2 strings. Returns 0 if they are equal
-int strcmp(char * s1, char * s2){
-    while(*s1 && *s2 && *s1 == *s2){
-        s1++;
-        s2++;
-    }
-    return *s1 - *s2;
-}
-
-int strncmp(char * s, char * t, unsigned int n) {
-    int i;
-    for (i = 0; i < n-1 && s[i] != '\0' && t[i] != '\0' && s[i] == t[i]; i++)
-        ;
-    return s[i]-t[i];
-}
-
-//Returns true(!= 0) if start is an initial substring of str and 0 if not
-int starts_with(char * str, char * start){
-    while(*str != 0 && *start != 0){
-        if(*(str++) != *(start++)){
-            return 0;
-        }
-    }
-    return *start == 0;
 }
