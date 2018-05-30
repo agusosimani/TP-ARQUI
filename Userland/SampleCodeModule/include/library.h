@@ -10,5 +10,6 @@ void sys_print_integer(int num);
 void sys_print_char(char c);
 void sys_display_time(int color);
 void sys_clear();
+void get_char(char* c);
 
 #endif

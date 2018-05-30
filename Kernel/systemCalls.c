@@ -1,4 +1,5 @@
 #include <videoDriver.h>
+#include <keyboardDriver.h>
 #include <time.h>
 #include <systemCalls.h>
 
@@ -19,5 +20,7 @@ void systemCallDispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx
         case 4:
             paint_background();
             break;
+        case 5:
+            get_char((char*)rsi);
     }
 }

@@ -7,7 +7,7 @@ void shell() {
     sys_print_char(' ');
 
     //if el comando es time..
-    //display_time();
+    display_time();
 
     //if el comando es test
     //chequeo argumento
@@ -26,9 +26,19 @@ void display_time() {
     int color = 0;
 
     while(running) {
-        // detectar si toca la tecla c o q y cambair de color o poner running en 0
         sys_display_time(color);
+
+        char* c;
+        get_char(c);
+
+        if (*c == 'c') {
+            color ++;
+        } else if (*c == 'q') {
+            running = 0;
+        }
     }
+
+    return;
 }
 
 void test(int id) {

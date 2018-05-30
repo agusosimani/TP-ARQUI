@@ -21,3 +21,7 @@ void sys_display_time(int color) {
 void sys_clear() {
     systemCall(4,0,0,0);
 }
+
+void get_char(char* c) {
+    systemCall(5,c,0,0);
+}

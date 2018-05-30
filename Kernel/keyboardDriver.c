@@ -182,7 +182,6 @@ void keyboard_handler(){
 
 
 void put_character(char character){
-    print_character(character);
     buffer[w_index]=character;
     w_index=(w_index+1)%BUFFERSIZE;
     if(count==BUFFERSIZE){
