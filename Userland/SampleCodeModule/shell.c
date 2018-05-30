@@ -7,8 +7,11 @@ void shell() {
     sys_print_char(' ');
 
     //if el comando es time..
-    display_time();
+    //display_time();
 
+    //if el comando es test
+    //chequeo argumento
+    //test(0);
 }
 
 void display_time() {
@@ -25,5 +28,16 @@ void display_time() {
     while(running) {
         // detectar si toca la tecla c o q y cambair de color o poner running en 0
         sys_display_time(color);
+    }
+}
+
+void test(int id) {
+    switch(id) {
+        case ZERO_EXCEPTION_ID:
+            zero();
+            break;
+        case INVALID_OPCODE_EXCEPTION_ID:
+            opcode();
+            break;
     }
 }
