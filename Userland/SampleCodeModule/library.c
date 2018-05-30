@@ -24,7 +24,7 @@ void get_char(char* c) {
     systemCall(5,c,0,0);
 }
 
-//Compara 2 cadenas, devuelve 0 si son iguales
+//Compares 2 strings. Returns 0 if they are equal
 int strcmp(char * s1, char * s2){
     while(*s1 && *s2 && *s1 == *s2){
         s1++;
@@ -40,8 +40,7 @@ int strncmp(char * s, char * t, unsigned int n) {
     return s[i]-t[i];
 }
 
-//Devuelve TRUE si start es subcadena inicial de str, FALSE (0)
-//si esto no pasa
+//Returns true(!= 0) if start is an initial substring of str and 0 if not
 int starts_with(char * str, char * start){
     while(*str != 0 && *start != 0){
         if(*(str++) != *(start++)){
