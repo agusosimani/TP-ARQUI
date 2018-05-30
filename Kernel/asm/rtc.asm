@@ -22,10 +22,20 @@ get_data:
 	ret
 
 get_hour:
-	mov al, 4
-	call get_data
-	sub rax,3
-	ret
+        mov al, 4
+        call get_data
+        cmp rax, 1
+        jmp .one
+        cmp rax, 2
+        jmp .two
+        sub rax,3
+        ret
+	.one:
+	    mov rax, 22
+	    ret
+	.two:
+	    mov rax, 23
+	    ret
 
 get_minutes:
 	mov al, 2

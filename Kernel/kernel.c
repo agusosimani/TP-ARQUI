@@ -58,6 +58,8 @@ int main()
     Color color={0,0,0};
 
     paint_background();
+	print_string("Press 'c' to change color of the digital clock");
+	print_string("Press 'q' to quit");
 
     while(1) {
 	    int hour = get_hour();
