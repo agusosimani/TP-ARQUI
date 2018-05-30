@@ -24,6 +24,10 @@ void get_char(char* c) {
     systemCall(5,c,0,0);
 }
 
+void beep() {
+  systemCall(6,0,0,0);
+}
+
 //Compares 2 strings. Returns 0 if they are equal
 int strcmp(char * s1, char * s2){
     while(*s1 && *s2 && *s1 == *s2){

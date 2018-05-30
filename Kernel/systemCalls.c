@@ -23,5 +23,8 @@ void systemCallDispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx
         case 5:
             get_character((char*)rsi);
             break;
+        case 6:
+            beep();
+            break;
     }
 }

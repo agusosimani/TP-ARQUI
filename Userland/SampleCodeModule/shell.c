@@ -39,12 +39,33 @@ void get_command() {
 
 void process_command() {
 
-    //if el comando es time..
-    //display_time();
+    if (buffer[0] == 0) {
+        put_char('\n');
+    } else if (strcmp(buffer,"help") == 0) {
+        help();
+    } else if (starts_with(buffer,"test") == 0) {
+        buffer = buffer + 5;
+        if (strcmp(buffer,"opcode") == 0) {
+            test(6);
+        } else if (strcmp(buffer),"zero") {
+            test(0);
+        } else {
+            sys_print_string("Invalid parameter for test. Try test opcode or test zero");
+        }
+    } else if (strcmp(buffer,"clear") == 0) {
+        sys_clear();
+    } else if (strcmp(buffer,"time") == 0) {
+        display_time();
+    } else {
+        sys_print_string("Invalid command, insert help to see valid commands");
+    }
+}
 
-    //if el comando es test
-    //chequeo argumento
-    //test(0);
+void help() {
+    sys_print_string("help                - Displays help instructions");
+    sys_print_string("test [command]      - Test exceptions. Command can be 'opcode' or 'zero'");
+    sys_print_string("clear               - Clears screen");
+    sys_print_string("time                - Displays time");
 }
 
 void display_time() {
@@ -64,6 +85,7 @@ void display_time() {
 
         if (*c == 'c') {
             color++;
+            //beep();
 
         } else if (*c == 'q') {
             display = 0;

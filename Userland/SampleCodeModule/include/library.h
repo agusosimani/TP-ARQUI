@@ -11,5 +11,6 @@ void put_char(char c);
 void sys_display_time(int color);
 void sys_clear();
 void get_char(char* c);
+void beep();
 
 #endif
