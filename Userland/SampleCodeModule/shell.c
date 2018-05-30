@@ -44,10 +44,9 @@ void process_command() {
     } else if (strcmp(buffer,"help") == 0) {
         help();
     } else if (starts_with(buffer,"test") == 0) {
-        buffer = buffer + 5;
-        if (strcmp(buffer,"opcode") == 0) {
+        if (strcmp(buffer+5,"opcode") == 0) {
             test(6);
-        } else if (strcmp(buffer),"zero") {
+        } else if (strcmp(buffer+5,"zero")) {
             test(0);
         } else {
             sys_print_string("Invalid parameter for test. Try test opcode or test zero");

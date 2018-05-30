@@ -9,8 +9,8 @@ void shell();
 void get_command();
 void process_command();
 void display_time();
-void test_zero();
-void test_opcode();
+void test(int id);
+void help();
 
 extern void opcode();
 extern void zero();

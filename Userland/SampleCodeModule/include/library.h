@@ -13,4 +13,9 @@ void sys_clear();
 void get_char(char* c);
 void beep();
 
+//Compares 2 strings. Returns 0 if they are equal
+int strcmp(char * s1, char * s2);
+//Returns true(!= 0) if start is an initial substring of str and 0 if not
+int starts_with(char * str, char * start);
+
 #endif
