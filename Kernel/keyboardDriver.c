@@ -128,7 +128,7 @@ static int ctrl_flag=0;
 static int alt_flag=0;
 static int capslock_flag=0;
 static int shift_flag=0;
-static int print_flag=0;
+static int print_flag=1;
 static int count=0;
 
 void keyboard_handler(){
