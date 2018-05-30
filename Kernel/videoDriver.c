@@ -92,6 +92,13 @@ void print_character(char c){
 	write_position.x+=CHAR_WIDTH;
 }
 
+void delete(){
+	write_position.x-=CHAR_WIDTH;
+	print_character(' ');
+	write_position.x-=CHAR_WIDTH;
+
+}
+
 void print_character_with_data(char c,Position pos,Color color){
 	if(c==8){
 		//delete();

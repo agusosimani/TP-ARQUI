@@ -49,10 +49,8 @@ void * initializeKernelBinary()
 int main()
 {
     load_idt();
-
-	paint_background();
-
-	((EntryPoint)sampleCodeModuleAddress)();
+		paint_background();
+		((EntryPoint)sampleCodeModuleAddress)();
 
 	return 0;
 }

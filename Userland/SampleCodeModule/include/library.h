@@ -2,6 +2,8 @@
 #define _LIBRARY_H_
 
 #include <stdint.h>
+#include <stdarg.h>
+
 
 extern void systemCall(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx);
 

@@ -6,6 +6,8 @@ static char buffer[MAX_SIZE];
 
 void shell() {
 
+
+    //printf("\n");
     running = 1;
     while (running) {
         put_char('>');
