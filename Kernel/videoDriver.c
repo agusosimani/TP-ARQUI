@@ -11,9 +11,14 @@ static int y_resolution;
 
 Color background_color={176,224,230};
 Color font_color={0,0,0};
+<<<<<<< Updated upstream
 Position screen_position={0,768-CHAR_HEIGHT*2};
 Position write_position={0,768-CHAR_HEIGHT*2};
 Color colors[] = {{0,0,0},{66,134,244},{244,66,244},{66,244,92},{170,66,244},{244,75,66},{235,244,66},{78,66,244}};
+=======
+Position screen_position={0,768-CHAR_HEIGHT};
+Position write_position={0,768-CHAR_HEIGHT};
+>>>>>>> Stashed changes
 
 //borrar
 
@@ -247,6 +252,11 @@ void print_number_with_data(uint64_t  number,int base,Position pos,Color color){
 
 void print_integer(int number){
 	print_number_with_data(number,10,write_position,font_color);
+
+}
+
+void print_hexa(uint64_t  number){
+	print_number_with_data(number,16,write_position,font_color);
 }
 
 int n_tu(int number, int count) {
@@ -381,4 +391,3 @@ void display_time(int color) {
 	display_position = print_digit(left,colors[color%8],display_position);
 	display_position = print_digit(right,colors[color%8],display_position);
 }
-
