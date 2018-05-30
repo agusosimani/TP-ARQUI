@@ -193,7 +193,7 @@ void put_character(char character){
 
 void get_character(char * character){
     if(count==0){
-        *character=0;
+        *character=-1;
         return;
     }
     *character=buffer[r_index];

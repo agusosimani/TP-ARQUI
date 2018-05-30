@@ -54,7 +54,7 @@ void move_line(){
 	write_position.y=768-CHAR_HEIGHT;
 	Color pixel_color;
 	unsigned char * pixel_address;
-	for(int x=0;x<x_resolution;x++){
+	for(int x=0 ;x<x_resolution;x++){
 		for(int y=screen_position.y;y<y_resolution;y++){
 			Position aux={x,y};
 			pixel_address = get_video_start() + 3*(x + y*x_resolution);

@@ -1,7 +1,8 @@
 #include <library.h>
+#include <stdint.h>
 
 void sys_print_string(char* string) {
-    systemCall(0,string,0,0);
+    systemCall(0,(uint64_t)string,0,0);
 }
 
 void sys_print_integer(int num) {
@@ -9,7 +10,7 @@ void sys_print_integer(int num) {
 }
 
 void put_char(char c) {
-    systemCall(2,c,0,0);
+    systemCall(2,(uint64_t)c,0,0);
 }
 
 void sys_display_time(int color) {
@@ -21,7 +22,7 @@ void sys_clear() {
 }
 
 void get_char(char* c) {
-    systemCall(5,c,0,0);
+    systemCall(5,(uint64_t)c,0,0);
 }
 
 void beep() {

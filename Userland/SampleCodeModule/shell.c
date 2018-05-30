@@ -1,8 +1,21 @@
 #include <shell.h>
 #include <library.h>
 
+
+typedef struct Command {
+    char name[MAX_NAME];
+    char description[MAX_DESCRIPTION];
+    void (*function)(void);
+} Command;
+
 static int running;
-static char buffer[MAX_SIZE];
+static Command commands[COMMANDS] = {
+        {"help","Displays help instructions",help},
+        {"test opcode","Test invalid opcode exception",opcode},
+        {"test zero","Test division by zero exception",zero},
+        {"time","Displays time",display_time},
+        {"clear","Clears screen",sys_clear}
+};
 
 void shell() {
 
@@ -10,70 +23,59 @@ void shell() {
     printf("las olas y el viernto %c\n",'M');
     running = 1;
     while (running) {
+        static char buffer[MAX_SIZE];
         put_char('>');
         put_char(' ');
-        get_command();
-        process_command();
+        get_command(buffer);
+        process_command(buffer);
     }
 }
 
-void get_command() {
-    char c;
+void get_command(char* buffer) {
+    char c = 0;
     int i = 0;
 
     int enter = 1;
     while (enter) {
         get_char(&c);
-        if (c == '\n') {
-            enter = 0;
-        } else if (c == '\b') {
-            if (i > 0) {
-                i--;
+        if (c != -1) {
+            if (c == '\n') {
+                enter = 0;
+            } else if (c == '\b') {
+                if (i > 0) {
+                    i--;
+                    put_char(c);
+                }
+            } else if (i < MAX_SIZE-1) {
+                buffer[i++] = c;
                 put_char(c);
             }
-        } else if (i < MAX_SIZE-1) {
-            buffer[i++] = c;
-            put_char(c);
         }
     }
     buffer[i] = 0;
 }
 
-void process_command() {
-
-    if (buffer[0] == 0) {
-        put_char('\n');
-    } else if (strcmp(buffer,"help") == 0) {
-        help();
-    } else if (starts_with(buffer,"test") == 0) {
-        if (strcmp(buffer+5,"opcode") == 0) {
-            test(6);
-        } else if (strcmp(buffer+5,"zero")) {
-            test(0);
-        } else {
-            sys_print_string("Invalid parameter for test. Try test opcode or test zero");
+void process_command(char* buffer) {
+    for (int i=0; i<COMMANDS; i++) {
+        if (strcmp(commands[i].name,buffer) == 0) {
+            commands[i].function();
+            return;
         }
-    } else if (strcmp(buffer,"clear") == 0) {
-        sys_clear();
-    } else if (strcmp(buffer,"time") == 0) {
-        display_time();
-    } else {
-        sys_print_string("Invalid command, insert help to see valid commands");
     }
+    printf("\nInvalid command. Insert help to see valid commands");
 }
 
 void help() {
-    sys_print_string("help                - Displays help instructions");
-    sys_print_string("test [command]      - Test exceptions. Command can be 'opcode' or 'zero'");
-    sys_print_string("clear               - Clears screen");
-    sys_print_string("time                - Displays time");
+    for (int i=0; i<COMMANDS; i++) {
+        printf("\n%s - %s",commands[i].name,commands[i].description);
+    }
 }
 
-void display_time() {
+void display_time(int param) {
 
     sys_clear();
-    sys_print_string("Press 'c' to change color of the digital clock");
-    sys_print_string("Press 'q' to quit");
+    printf("Press 'c' to change color of the digital clock\n");
+    printf("Press 'q' to quit\n");
 
     int display = 1;
     int color = 0;
@@ -81,27 +83,16 @@ void display_time() {
     while(display) {
         sys_display_time(color);
 
-        char* c = 0;
-        get_char(c);
+        char c;
+        get_char(&c);
 
-        if (*c == 'c') {
+        if (c == 'c') {
             color++;
             //beep();
 
-        } else if (*c == 'q') {
+        } else if (c == 'q') {
             display = 0;
         }
     }
     sys_clear();
-}
-
-void test(int id) {
-    switch(id) {
-        case ZERO_EXCEPTION_ID:
-            zero();
-            break;
-        case INVALID_OPCODE_EXCEPTION_ID:
-            opcode();
-            break;
-    }
 }
