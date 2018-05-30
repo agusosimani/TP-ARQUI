@@ -12,7 +12,8 @@ GLOBAL _irq03Handler
 GLOBAL _irq04Handler
 GLOBAL _irq05Handler
 
-GLOBAL _exception0Handler
+GLOBAL _zeroDivisionHandler
+GLOBAL _opcodeHandler
 
 EXTERN irqDispatcher
 EXTERN exceptionDispatcher
@@ -75,10 +76,14 @@ SECTION .text
 	pushState
 
 	mov rdi, %1 ; pasaje de parametro
+	mov rsi, rsp
+
 	call exceptionDispatcher
 
 	popState
+	mov qword [rsp], 0x400000
 	iretq
+
 %endmacro
 
 
@@ -138,8 +143,12 @@ _irq05Handler:
 
 
 ;Zero Division Exception
-_exception0Handler:
+_zeroDivisionHandler:
 	exceptionHandler 0
+
+;Opcode Exception
+_opcodeHandler:
+    exceptionHandler 6
 
 haltcpu:
 	cli

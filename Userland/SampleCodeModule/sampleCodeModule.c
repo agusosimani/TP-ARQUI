@@ -1,6 +1,8 @@
-#include <library.h>
+#include <shell.h>
 
 int main() {
-	//START SHELL
+
+	shell();
+
 	return 1;
 }

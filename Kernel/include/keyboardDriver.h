@@ -1,6 +1,6 @@
 
-#ifndef TP_ARQUI_KEYBOARDDRIVER_H
-#define TP_ARQUI_KEYBOARDDRIVER_H
+#ifndef _KEYBOARDDRIVER_H
+#define _KEYBOARDDRIVER_H
 
 #define BUFFERSIZE 10
 
@@ -9,4 +9,4 @@ void put_character(char character);
 extern int scan_key();
 
 
-#endif //TP_ARQUI_KEYBOARDDRIVER_H
+#endif

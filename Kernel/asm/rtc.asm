@@ -25,9 +25,9 @@ get_hour:
         mov al, 4
         call get_data
         cmp rax, 1
-        jmp .one
+        je .one
         cmp rax, 2
-        jmp .two
+        je .two
         sub rax,3
         ret
 	.one:

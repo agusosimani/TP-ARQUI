@@ -3,7 +3,6 @@
 #include <systemCalls.h>
 
 void systemCallDispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx) {
-    //ESTAN PUESTAS COMO EJEMPLO.. HAY QUE AGREGAR LAS QUE VAMOS A USAR POSTA
     switch (rdi) {
         case 0:
             print_string((char*)rsi);
@@ -12,6 +11,13 @@ void systemCallDispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx
             print_integer(rsi);
             break;
         case 2:
+            print_character((char)rsi);
+            break;
+        case 3:
+            display_time(rsi);
+            break;
+        case 4:
+            paint_background();
             break;
     }
 }

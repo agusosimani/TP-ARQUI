@@ -2,6 +2,7 @@
 #include <videoDriver.h>
 #include <videoModeInfo.h>
 #include <stdint.h>
+#include <time.h>
 
 static unsigned char ** start_video_position = (unsigned char**)0x0005C28;
 static int x_resolution;
@@ -12,6 +13,7 @@ Color background_color={176,224,230};
 Color font_color={0,0,0};
 Position screen_position={0,768-CHAR_HEIGHT*2};
 Position write_position={0,768-CHAR_HEIGHT*2};
+Color colors[] = {{0,0,0},{66,134,244},{244,66,244},{66,244,92},{170,66,244},{244,75,66},{235,244,66},{78,66,244}};
 
 //borrar
 
@@ -316,9 +318,10 @@ Position print_digit(int number, Color color, Position position) {
 	return posaux;
 }
 
-
-
-void display_time(int hour, int minutes, int seconds, Color color) {
+void display_time(int color) {
+	int hour = get_hour();
+	int minutes = get_minutes();
+	int seconds = get_seconds();
 
 	Position display_position = {x_resolution/2 - 309, y_resolution/2 -21};
 
@@ -327,23 +330,23 @@ void display_time(int hour, int minutes, int seconds, Color color) {
 	//print hour
 	right = hour%10;
 	left = hour/10;
-	display_position = print_digit(left,color,display_position);
-	display_position = print_digit(right,color,display_position);
-	display_position = print_digit(10,color,display_position); //colon
+	display_position = print_digit(left,colors[color%8],display_position);
+	display_position = print_digit(right,colors[color%8],display_position);
+	display_position = print_digit(10,colors[color%8],display_position); //colon
 
 	//print minutes
 	right = minutes%10;
 	left = minutes/10;
 
-	display_position = print_digit(left,color,display_position);
-	display_position = print_digit(right,color,display_position);
-	display_position = print_digit(10,color,display_position); //colon
+	display_position = print_digit(left,colors[color%8],display_position);
+	display_position = print_digit(right,colors[color%8],display_position);
+	display_position = print_digit(10,colors[color%8],display_position); //colon
 
 	//print seconds
 	right = seconds%10;
 	left = seconds/10;
 
-	display_position = print_digit(left,color,display_position);
-	display_position = print_digit(right,color,display_position);
+	display_position = print_digit(left,colors[color%8],display_position);
+	display_position = print_digit(right,colors[color%8],display_position);
 }
 

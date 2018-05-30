@@ -7,5 +7,8 @@ extern void systemCall(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx);
 
 void sys_print_string(char* string);
 void sys_print_integer(int num);
+void sys_print_char(char c);
+void sys_display_time(int color);
+void sys_clear();
 
 #endif

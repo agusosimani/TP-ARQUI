@@ -4,7 +4,6 @@
 #include <moduleLoader.h>
 #include <idtLoader.h>
 #include <videoDriver.h>
-#include <time.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -52,22 +51,6 @@ int main()
     load_idt();
 
 	paint_background();
-
-	//while(1);
-
-    Color color={0,0,0};
-
-    paint_background();
-	print_string("Press 'c' to change color of the digital clock");
-	print_string("Press 'q' to quit");
-
-    while(1) {
-	    int hour = get_hour();
-	    int minutes = get_minutes();
-	    int seconds = get_seconds();
-
-		display_time(hour,minutes,seconds,color);
-	}
 
 	((EntryPoint)sampleCodeModuleAddress)();
 

@@ -1,5 +1,6 @@
 #ifndef VIDEODRIVER_H
 #define VIDEODRIVER_H
+
 #define MAX_DIGITS 256
 
 #include <stdint.h>
@@ -32,6 +33,6 @@ void print_character(char c);
 int getX();
 int getY();
 void move_line();
-void display_time(int hour, int minutes, int seconds, Color color);
+void display_time(int color);
 
 #endif //VIDEODRIVER_H
