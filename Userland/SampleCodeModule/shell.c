@@ -5,34 +5,33 @@ static int running;
 static char buffer[MAX_SIZE];
 
 void shell() {
-    char* c;
 
     running = 1;
     while (running) {
         put_char('>');
         put_char(' ');
         get_command();
-        //process_command();
+        process_command();
     }
 }
 
 void get_command() {
-    char * c = 0;
+    char c;
     int i = 0;
 
     int enter = 1;
     while (enter) {
-        get_char(c);
-        if (*c == '\n') {
+        get_char(&c);
+        if (c == '\n') {
             enter = 0;
-        } else if (*c == '\b') {
+        } else if (c == '\b') {
             if (i > 0) {
                 i--;
-                put_char(*c);
+                put_char(c);
             }
         } else if (i < MAX_SIZE-1) {
-            buffer[i++] = *c;
-            put_char(*c);
+            buffer[i++] = c;
+            put_char(c);
         }
     }
     buffer[i] = 0;
@@ -52,8 +51,6 @@ void display_time() {
 
     sys_clear();
     sys_print_string("Press 'c' to change color of the digital clock");
-    put_char(' ');
-    put_char(' ');
     sys_print_string("Press 'q' to quit");
 
     int display = 1;
@@ -72,6 +69,7 @@ void display_time() {
             display = 0;
         }
     }
+    sys_clear();
 }
 
 void test(int id) {

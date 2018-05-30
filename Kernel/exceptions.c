@@ -22,6 +22,6 @@ void opcode(uint64_t * rsp) {
 void printRegisters(uint64_t * rsp) {
 	for (int i = 0; i < REGISTERS; i++) {
 		print_string(registers[i]);
-		//print hexa
+		print_hexa(rsp[i]);
 	}
 }

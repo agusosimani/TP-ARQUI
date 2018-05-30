@@ -11,7 +11,6 @@ static int y_resolution;
 
 Color background_color={176,224,230};
 Color font_color={0,0,0};
-
 Position screen_position={0,768-CHAR_HEIGHT*2};
 Position write_position={0,768-CHAR_HEIGHT};
 Color colors[] = {{0,0,0},{66,134,244},{244,66,244},{66,244,92},{170,66,244},{244,75,66},{235,244,66},{78,66,244}};
