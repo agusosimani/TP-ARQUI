@@ -14,8 +14,18 @@
 
 // First argument indicates which function should be called
 // Remaining arguments will be passed as function parameters
-void systemCallDispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx);
+void systemCallDispatcher(uint64_t id, uint64_t param1, uint64_t param2, uint64_t param3, uint64_t param4, uint64_t param5, uint64_t param6);
 
-void systemCallHandler(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx);
+void systemCallHandler(uint64_t id, uint64_t param1, uint64_t param2, uint64_t param3, uint64_t param4, uint64_t param5, uint64_t param6);
+
+void hour(int * h);
+
+void minutes(int * m);
+
+void seconds(int * s);
+
+void x_res(int * x);
+
+void y_res(int * y);
 
 #endif //_SYSTEMCALLS_H

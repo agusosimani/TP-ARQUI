@@ -28,11 +28,12 @@ void print_double_with_data(float number,Position pos,Color color);
 void set();
 void print_double(float number);
 void print_integer(int number);
+void print_hexa(uint64_t  number);
 void print_string(char* string);
 void print_character(char c);
 int getX();
 int getY();
 void move_line();
-void display_time(int color);
+void print_digit(int number, int r, int g, int b, int * xpos, int * ypos);
 
 #endif //VIDEODRIVER_H

@@ -1,32 +1,44 @@
 #include <library.h>
 #include <stdint.h>
 
-void sys_print_string(char* string) {
-    systemCall(0,(uint64_t)string,0,0);
-}
-
-void sys_print_integer(int num) {
-    systemCall(1,num,0,0);
+void get_char(char* c) {
+    systemCall(0,(uint64_t)c,0,0,0,0,0);
 }
 
 void put_char(char c) {
-    systemCall(2,(uint64_t)c,0,0);
+    systemCall(1,(uint64_t)c,0,0,0,0,0);
 }
 
-void sys_display_time(int color) {
-    systemCall(3,color,0,0);
+void clear() {
+    systemCall(2,0,0,0,0,0,0);
 }
 
-void sys_clear() {
-    systemCall(4,0,0,0);
+void get_hour(int * h) {
+    systemCall(3,(uint64_t)h,0,0,0,0,0);
 }
 
-void get_char(char* c) {
-    systemCall(5,(uint64_t)c,0,0);
+void get_minutes(int * m) {
+    systemCall(4,(uint64_t)m,0,0,0,0,0);
+}
+
+void get_seconds(int * s) {
+    systemCall(5,(uint64_t)s,0,0,0,0,0);
 }
 
 void beep() {
-  systemCall(6,0,0,0);
+    systemCall(6,0,0,0,0,0,0);
+}
+
+void get_x_res(int * x) {
+    systemCall(7,(uint64_t)x,0,0,0,0,0);
+}
+
+void get_y_res(int * y) {
+    systemCall(8,(uint64_t)y,0,0,0,0,0);
+}
+
+void put_digit(int number, int r, int g, int b, int* x, int* y) {
+    systemCall(9,number,r,g,b,(uint64_t)x,(uint64_t)y);
 }
 
 //Compares 2 strings. Returns 0 if they are equal
@@ -45,16 +57,6 @@ int strncmp(char * s, char * t, unsigned int n) {
     return s[i]-t[i];
 }
 
-//Returns true(!= 0) if start is an initial substring of str and 0 if not
-int starts_with(char * str, char * start){
-    while(*str != 0 && *start != 0){
-        if(*(str++) != *(start++)){
-            return 0;
-        }
-    }
-    return *start == 0;
-}
-
 static char *convert(unsigned int num, int base){
     static char Representation[]= "0123456789ABCDEF";
     static char buffer[50];
@@ -70,6 +72,13 @@ static char *convert(unsigned int num, int base){
     }while(num != 0);
 
     return(ptr);
+}
+
+void print_string(char* string) {
+    while (*string != 0) {
+        put_char(*string);
+        string++;
+    }
 }
 
 void vprintf(char *fmt, va_list arg){
@@ -105,19 +114,19 @@ void vprintf(char *fmt, va_list arg){
                             i = -i;
                             put_char('-');
                         }
-                        sys_print_string(convert(i,10));
+                        print_string(convert(i,10));
                         break;
 
             case 'o': i = va_arg(arg,unsigned int); //Fetch Octal representation
-                        sys_print_string(convert(i,8));
+                        print_string(convert(i,8));
                         break;
 
             case 's': s = va_arg(arg,char *);       //Fetch string
-                        sys_print_string(s);
+                        print_string(s);
                         break;
 
             case 'x': i = va_arg(arg,unsigned int); //Fetch Hexadecimal representation
-                        sys_print_string(convert(i,16));
+                        print_string(convert(i,16));
                         break;
         }
     }

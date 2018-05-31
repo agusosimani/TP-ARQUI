@@ -14,7 +14,6 @@ Color font_color={0,0,0};
 
 Position screen_position={0,768-CHAR_HEIGHT*2};
 Position write_position={0,768-CHAR_HEIGHT};
-Color colors[] = {{0,0,0},{66,134,244},{244,66,244},{66,244,92},{170,66,244},{244,75,66},{235,244,66},{78,66,244}};
 
 void set(){
 	x_resolution = get_x_resolution();
@@ -85,6 +84,10 @@ void paint_background(){
 			paint_pixel(pos,background_color);
 		}
 	}
+	Position aux = {0,768-CHAR_HEIGHT*2};
+    screen_position = aux;
+    Position aux2 = {0,768-CHAR_HEIGHT};
+    write_position= aux2;
 }
 
 void print_character(char c){
@@ -93,16 +96,15 @@ void print_character(char c){
 	write_position.x+=CHAR_WIDTH;
 }
 
-void delete(){
+void backspace(){
 	write_position.x-=CHAR_WIDTH;
 	print_character(' ');
-	write_position.x-=CHAR_WIDTH;
-
+	write_position.x-=CHAR_WIDTH*2;
 }
 
 void print_character_with_data(char c,Position pos,Color color){
 	if(c==8){
-		//delete();
+		backspace();
 	}
 	else if(c==10){
 		move_line();
@@ -114,7 +116,7 @@ void print_character_with_data(char c,Position pos,Color color){
 			for(aux.x=0;aux.x<CHAR_WIDTH;aux.x++){
 				unsigned char character_aux=character[aux.y];
 				character_aux >>= 8-aux.x;
-				Position pos_aux={pos.x+aux.x,pos.y+aux.y};//le sumo el actual en y para no pisar lineas ya escritas
+				Position pos_aux={pos.x+aux.x,pos.y+aux.y}; //le sumo el actual en y para no pisar lineas ya escritas
 				if(character_aux%2==1){
 					paint_pixel(pos_aux,color);
 				}
@@ -141,9 +143,8 @@ void print_string_with_data(char * string,Position pos,Color color){//al termina
 		print_character_with_data(string[i],pos,color);
 		pos.x+=CHAR_WIDTH;//corro la x acual de la pantalla
 	}
-	write_position.x=0;
+	write_position.x += lenght*CHAR_WIDTH;
 	write_position.y=768-CHAR_HEIGHT;
-	//move_line();
 }
 
 void print_string(char* string){
@@ -275,60 +276,45 @@ void print_double(float number){
 	print_double_with_data(number,write_position,font_color);
 }
 
-//FUNCTIONS TO PRINT CLOCK
+//FUNCTION TO PRINT CLOCK
 
-Position print_digit(int number, Color color, Position position) {
-	unsigned char * digit = clock_digits_map(number);
+Position print_digit_struct(int number, Color color, Position position) {
+    unsigned char * digit = clock_digits_map(number);
     Position posaux = position;
-	unsigned char pixel;
+    unsigned char pixel;
 
-	for (int y=0; y<CLOCK_DIGIT_HEIGHT; y++) {
-		for (int j=0; j<8; j++) {
-			pixel = digit[(y*8)+j];
-			for (int x=0; x<8; x++) {
-				Position to_write = {position.x + x, position.y + y};
-				if (((pixel >> (8-x))%2)!=0) {
-					paint_pixel(to_write,color);
-				} else {
-					paint_pixel(to_write,background_color);
-				}
-			}
-			position.x += 8;
-		}
-		position.x = posaux.x;
-	}
-	posaux.x += (CLOCK_DIGIT_WIDTH+15);
-	return posaux;
+    for (int y=0; y<CLOCK_DIGIT_HEIGHT; y++) {
+        for (int j=0; j<8; j++) {
+            pixel = digit[(y*8)+j];
+            for (int x=0; x<8; x++) {
+                Position to_write = {position.x + x, position.y + y};
+                if (((pixel >> (8-x))%2)!=0) {
+                    paint_pixel(to_write,color);
+                } else {
+                    paint_pixel(to_write,background_color);
+                }
+            }
+            position.x += 8;
+        }
+        position.x = posaux.x;
+    }
+    posaux.x += (CLOCK_DIGIT_WIDTH+15);
+    return posaux;
 }
 
-void display_time(int color) {
-	int hour = get_hour();
-	int minutes = get_minutes();
-	int seconds = get_seconds();
-
-	Position display_position = {x_resolution/2 - 309, y_resolution/2 -21};
-
-	int left, right;
-
-	//print hour
-	right = hour%10;
-	left = hour/10;
-	display_position = print_digit(left,colors[color%8],display_position);
-	display_position = print_digit(right,colors[color%8],display_position);
-	display_position = print_digit(10,colors[color%8],display_position); //colon
-
-	//print minutes
-	right = minutes%10;
-	left = minutes/10;
-
-	display_position = print_digit(left,colors[color%8],display_position);
-	display_position = print_digit(right,colors[color%8],display_position);
-	display_position = print_digit(10,colors[color%8],display_position); //colon
-
-	//print seconds
-	right = seconds%10;
-	left = seconds/10;
-
-	display_position = print_digit(left,colors[color%8],display_position);
-	display_position = print_digit(right,colors[color%8],display_position);
+void print_digit(int number, int r, int g, int b, int * xpos, int * ypos) {
+    print_integer(r);
+    move_line();
+    print_integer(g);
+    move_line();
+    print_integer(b);
+    move_line();
+    print_integer(*xpos);
+    move_line();
+    print_integer(*ypos);
+    Color color = {r,g,b};
+    Position position = {*xpos,*ypos};
+    Position ret = print_digit_struct(number,color,position);
+    *xpos = ret.x;
+    *ypos = ret.y;
 }
