@@ -7,8 +7,6 @@ typedef struct Command {
     void (*function)(void);
 } Command;
 
-static int x_resolution;
-static int y_resolution;
 int colors[8][3] = {{0,0,0},{66,134,244},{244,66,244},{66,244,92},{170,66,244},{244,75,66},{235,244,66},{78,66,244}};
 static int running;
 static Command commands[COMMANDS] = {
@@ -21,13 +19,6 @@ static Command commands[COMMANDS] = {
 };
 
 void shell() {
-    
-    get_x_res(&x_resolution);
-    get_y_res(&y_resolution);
-
-//    int a = 4;
-//    int h = 5;
-//    put_digit(2,1,2,3,&a,&h);
 
     printf("Shell initialized\nValid commands:");
     help();
@@ -93,8 +84,7 @@ void print_time(int color) {
 	get_minutes(&minutes);
 	get_seconds(&seconds);
 
-	int x_display = x_resolution/2 - 309;
-	int y_display = y_resolution/2 -21;
+	int x_position = 0;
 	
 	int r = colors[color][0];
 	int g = colors[color][1];
@@ -105,24 +95,24 @@ void print_time(int color) {
 	//print hour
 	right = hour%10;
 	left = hour/10;
-	put_digit(left,r,g,b,&x_display,&y_display);
-	put_digit(right,r,g,b,&x_display,&y_display);
-	put_digit(10,r,g,b,&x_display,&y_display); //colon
+	put_digit(left,r,g,b,&x_position);
+	put_digit(right,r,g,b,&x_position);
+	put_digit(10,r,g,b,&x_position); //colon
 
 	//print minutes
 	right = minutes%10;
 	left = minutes/10;
 
-	put_digit(left,r,g,b,&x_display,&y_display);
-	put_digit(right,r,g,b,&x_display,&y_display);
-	put_digit(10,r,g,b,&x_display,&y_display); //colon
+	put_digit(left,r,g,b,&x_position);
+	put_digit(right,r,g,b,&x_position);
+	put_digit(10,r,g,b,&x_position); //colon
 
 	//print seconds
 	right = seconds%10;
 	left = seconds/10;
 
-	put_digit(left,r,g,b,&x_display,&y_display);
-	put_digit(right,r,g,b,&x_display,&y_display);
+	put_digit(left,r,g,b,&x_position);
+	put_digit(right,r,g,b,&x_position);
 }
 
 void display_time() {

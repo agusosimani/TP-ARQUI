@@ -34,6 +34,6 @@ void print_character(char c);
 int getX();
 int getY();
 void move_line();
-void print_digit(int number, int r, int g, int b, int * xpos, int * ypos);
+void print_digit(int number, int r, int g, int b, int * xpos);
 
 #endif //VIDEODRIVER_H

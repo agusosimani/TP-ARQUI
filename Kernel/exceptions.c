@@ -11,15 +11,13 @@ void exceptionDispatcher(int exception, uint64_t * rsp) {
 
 void zero_division(uint64_t * rsp) {
 	move_line();
-	move_line();
 	print_string("Exception: division by zero");
 	move_line();
 	printRegisters(rsp);
 }
 
 void opcode(uint64_t * rsp) {
-	move_line();
-	move_line();
+    move_line();
 	print_string("Exception: invalid opcode");
 	move_line();
 	printRegisters(rsp);

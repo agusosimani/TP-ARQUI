@@ -302,19 +302,12 @@ Position print_digit_struct(int number, Color color, Position position) {
     return posaux;
 }
 
-void print_digit(int number, int r, int g, int b, int * xpos, int * ypos) {
-    print_integer(r);
-    move_line();
-    print_integer(g);
-    move_line();
-    print_integer(b);
-    move_line();
-    print_integer(*xpos);
-    move_line();
-    print_integer(*ypos);
+void print_digit(int number, int r, int g, int b, int * xpos) {
     Color color = {r,g,b};
-    Position position = {*xpos,*ypos};
+    if (*xpos == 0) {
+        *xpos = x_resolution/2 - 309;
+    }
+    Position position = {*xpos,y_resolution/2 -21};
     Position ret = print_digit_struct(number,color,position);
     *xpos = ret.x;
-    *ypos = ret.y;
 }

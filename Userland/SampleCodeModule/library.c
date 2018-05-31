@@ -2,43 +2,35 @@
 #include <stdint.h>
 
 void get_char(char* c) {
-    systemCall(0,(uint64_t)c,0,0,0,0,0);
+    systemCall(0,(uint64_t)c,0,0,0,0);
 }
 
 void put_char(char c) {
-    systemCall(1,(uint64_t)c,0,0,0,0,0);
+    systemCall(1,(uint64_t)c,0,0,0,0);
 }
 
 void clear() {
-    systemCall(2,0,0,0,0,0,0);
+    systemCall(2,0,0,0,0,0);
 }
 
 void get_hour(int * h) {
-    systemCall(3,(uint64_t)h,0,0,0,0,0);
+    systemCall(3,(uint64_t)h,0,0,0,0);
 }
 
 void get_minutes(int * m) {
-    systemCall(4,(uint64_t)m,0,0,0,0,0);
+    systemCall(4,(uint64_t)m,0,0,0,0);
 }
 
 void get_seconds(int * s) {
-    systemCall(5,(uint64_t)s,0,0,0,0,0);
+    systemCall(5,(uint64_t)s,0,0,0,0);
 }
 
 void beep() {
-    systemCall(6,0,0,0,0,0,0);
+    systemCall(6,0,0,0,0,0);
 }
 
-void get_x_res(int * x) {
-    systemCall(7,(uint64_t)x,0,0,0,0,0);
-}
-
-void get_y_res(int * y) {
-    systemCall(8,(uint64_t)y,0,0,0,0,0);
-}
-
-void put_digit(int number, int r, int g, int b, int* x, int* y) {
-    systemCall(9,number,r,g,b,(uint64_t)x,(uint64_t)y);
+void put_digit(int number, int r, int g, int b, int* x) {
+    systemCall(7,number,r,g,b,(uint64_t)x);
 }
 
 //Compares 2 strings. Returns 0 if they are equal
