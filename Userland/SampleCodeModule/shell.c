@@ -26,8 +26,12 @@ void shell() {
     get_y_res(&y_resolution);
 
 //    int a = 4;
-//    int b = 5;
-//    put_digit(2,1,2,3,&a,&b);
+//    int h = 5;
+//    put_digit(2,1,2,3,&a,&h);
+
+    printf("Shell initialized\nValid commands:");
+    help();
+    put_char('\n');
 
     running = 1;
     while (running) {
