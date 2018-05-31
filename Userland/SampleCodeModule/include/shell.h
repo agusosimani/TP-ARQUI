@@ -14,6 +14,8 @@ void process_command(char* buffer);
 void display_time();
 void help();
 void exit();
+void test_opcode();
+void test_zero();
 
 extern void opcode();
 extern void zero();

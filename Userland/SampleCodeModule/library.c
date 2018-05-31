@@ -33,6 +33,10 @@ void put_digit(int number, int r, int g, int b, int* x) {
     systemCall(7,number,r,g,b,(uint64_t)x);
 }
 
+void set_font_color(int r, int g, int b) {
+    systemCall(8,r,g,b,0,0);
+}
+
 //Compares 2 strings. Returns 0 if they are equal
 int strcmp(char * s1, char * s2){
     while(*s1 && *s2 && *s1 == *s2){

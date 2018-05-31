@@ -11,8 +11,8 @@ int colors[8][3] = {{0,0,0},{66,134,244},{244,66,244},{66,244,92},{170,66,244},{
 static int running;
 static Command commands[COMMANDS] = {
         {"help","Displays help instructions",help},
-        {"test opcode","Test invalid opcode exception",opcode},
-        {"test zero","Test division by zero exception",zero},
+        {"test opcode","Test invalid opcode exception",test_opcode},
+        {"test zero","Test division by zero exception",test_zero},
         {"time","Displays time",display_time},
         {"clear","Clears screen",clear},
         {"exit","Terminates shell",exit}
@@ -20,6 +20,7 @@ static Command commands[COMMANDS] = {
 
 void shell() {
 
+    set_font_color(0,0,0);
     printf("Shell initialized\nValid commands:");
     help();
     put_char('\n');
@@ -27,6 +28,7 @@ void shell() {
     running = 1;
     while (running) {
         static char buffer[MAX_SIZE];
+        set_font_color(0,0,0);
         printf(" $> ");
         get_command(buffer);
         put_char('\n');
@@ -62,10 +64,12 @@ void get_command(char* buffer) {
 void process_command(char* buffer) {
     for (int i=0; i<COMMANDS; i++) {
         if (strcmp(commands[i].name,buffer) == 0) {
+            set_font_color(27,107,124);
             commands[i].function();
             return;
         }
     }
+    set_font_color(244,21,21);
     printf("\nInvalid command. Insert help to see valid commands\n");
 }
 
@@ -145,4 +149,14 @@ void exit() {
     running = 0;
     clear();
     printf(" See you soon");
+}
+
+void test_opcode() {
+    set_font_color(244,21,21);
+    opcode();
+}
+
+void test_zero() {
+    set_font_color(244,21,21);
+    zero();
 }

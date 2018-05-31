@@ -311,3 +311,9 @@ void print_digit(int number, int r, int g, int b, int * xpos) {
     Position ret = print_digit_struct(number,color,position);
     *xpos = ret.x;
 }
+
+void set_font_color(int r, int g, int b) {
+	font_color.red = r;
+	font_color.green = g;
+	font_color.blue = b;
+}
