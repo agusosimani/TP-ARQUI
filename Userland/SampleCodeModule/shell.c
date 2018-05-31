@@ -27,7 +27,7 @@ void shell() {
     running = 1;
     while (running) {
         static char buffer[MAX_SIZE];
-        printf("  > ");
+        printf(" $> ");
         get_command(buffer);
         put_char('\n');
         process_command(buffer);
