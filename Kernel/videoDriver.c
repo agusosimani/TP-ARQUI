@@ -92,8 +92,10 @@ void paint_background(){
 
 void print_character(char c){
 	print_character_with_data(c,write_position,font_color);
-	screen_position.x+=CHAR_WIDTH;
-	write_position.x+=CHAR_WIDTH;
+    if(c!=10){
+        screen_position.x+=CHAR_WIDTH;
+        write_position.x+=CHAR_WIDTH;
+    }
 }
 
 void backspace(){
