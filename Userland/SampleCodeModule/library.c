@@ -36,6 +36,9 @@ void put_digit(int number, int r, int g, int b, int* x) {
 void set_font_color(int r, int g, int b) {
     systemCall(8,r,g,b,0,0);
 }
+void set_back_color(int r,int g,int b){
+    systemCall(10,r,g,b,0,0);
+}
 
 void beepOff(){
   systemCall(9,0,0,0,0,0);

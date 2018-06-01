@@ -320,3 +320,9 @@ void set_font_color(int r, int g, int b) {
 	font_color.green = g;
 	font_color.blue = b;
 }
+
+void set_back_color(int r, int g, int b){
+    background_color.red=r;
+    background_color.green=g;
+    background_color.blue=b;
+}

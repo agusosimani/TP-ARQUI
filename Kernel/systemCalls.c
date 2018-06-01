@@ -35,6 +35,8 @@ void systemCallDispatcher(uint64_t id, uint64_t param1, uint64_t param2, uint64_
         case 9:
             beepOff();
             break;
+        case 10:
+            set_back_color(param1,param2,param3);
     }
 }
 

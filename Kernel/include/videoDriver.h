@@ -36,5 +36,7 @@ int getY();
 void move_line();
 void print_digit(int number, int r, int g, int b, int * xpos);
 void set_font_color(int r, int g, int b);
+void set_back_color(int r, int g, int b);
+
 
 #endif //VIDEODRIVER_H

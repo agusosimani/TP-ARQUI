@@ -16,6 +16,7 @@ void beepOn();
 void beepOff();
 void put_digit(int number, int r, int g, int b, int* x);
 void set_font_color(int r, int g, int b);
+void set_back_color(int r, int g, int b);
 
 void printf(char* fmt, ...);
 //Compares 2 strings. Returns 0 if they are equal
