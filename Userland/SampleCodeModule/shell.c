@@ -22,7 +22,7 @@ static Command commands[COMMANDS] = {
         {"test","Tests exceptions. Options: opcode, zero",test_opcode,2},
         {"time","Displays time",display_time,1},
         {"clear","Clears screen",clear,1},
-        {"backColor","Changes background color. Options: red, blue, green",back_color,2},
+        {"backColor","Changes background color. Options: yellow, blue, green",back_color,2},
         {"fontColor","Changes font color. Options: red, blue, green",font_color,2},
         {"exit","Terminates shell",exit,1}
 };
@@ -93,10 +93,10 @@ void process_command(char* buffer) {
             if (strcmp(commands[i].name, input[0]) == 0) {
                 if (words == 1) {//en realidad tiene 2 words,pero el primero es 0
                     if (strcmp(input[0], "backColor") == 0) {
-                        if (strcmp(input[1], "red") == 0) {
-                            BR=255;
-                            BB=0;
-                            BG=0;
+                        if (strcmp(input[1], "yellow") == 0) {
+                            BR=229;
+                            BB=66;
+                            BG=224;
                         } else if (strcmp(input[1], "green") == 0) {
                             BR=0;
                             BB=0;
@@ -263,6 +263,7 @@ void test_zero() {
 
 void back_color(){
     set_back_color(BR,BG,BB);
+    clear();
 
 }
 
