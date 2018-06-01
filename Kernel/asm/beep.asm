@@ -1,8 +1,9 @@
-GLOBAL beep
+GLOBAL beepOn
+GLOBAL beepOff
 
 section .text
 
-beep:
+beepOn:
         mov al, 182 ;frequency
         out 43h, al
         mov ax, 1193
@@ -12,8 +13,14 @@ beep:
         in al, 61h ;turn on speaker
         mov al, 03h
         out 61h, al
-   loop:
+        ret
+beepOff:
+        in al, 61h
+      	mov al, 00h
+      	out 61h,al
+        ret
+        
+loop:
         nop
         jmp loop
-
         ret

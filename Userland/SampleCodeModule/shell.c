@@ -89,7 +89,7 @@ void print_time(int color) {
 	get_seconds(&seconds);
 
 	int x_position = 0;
-	
+
 	int r = colors[color][0];
 	int g = colors[color][1];
 	int b = colors[color][2];
@@ -136,7 +136,12 @@ void display_time() {
 
         if (c == 'c') {
             color++;
-            //beep();
+            beepOn();
+            int i=0;
+            while( i!=10000000){
+              i++;
+            }
+            beepOff();
 
         } else if (c == 'q') {
             display = 0;

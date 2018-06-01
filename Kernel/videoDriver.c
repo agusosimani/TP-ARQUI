@@ -98,6 +98,7 @@ void print_character(char c){
     }
 }
 
+
 void backspace(){
 	write_position.x-=CHAR_WIDTH;
 	print_character(' ');

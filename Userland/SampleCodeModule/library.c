@@ -25,7 +25,7 @@ void get_seconds(int * s) {
     systemCall(5,(uint64_t)s,0,0,0,0);
 }
 
-void beep() {
+void beepOn() {
     systemCall(6,0,0,0,0,0);
 }
 
@@ -35,6 +35,10 @@ void put_digit(int number, int r, int g, int b, int* x) {
 
 void set_font_color(int r, int g, int b) {
     systemCall(8,r,g,b,0,0);
+}
+
+void beepOff(){
+  systemCall(9,0,0,0,0,0);
 }
 
 //Compares 2 strings. Returns 0 if they are equal
@@ -93,7 +97,8 @@ void vprintf(char *fmt, va_list arg){
         }
 
         if(*traverse == 0)
-        	break;
+                	break;
+
 
         traverse++;
 

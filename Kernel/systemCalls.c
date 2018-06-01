@@ -24,13 +24,16 @@ void systemCallDispatcher(uint64_t id, uint64_t param1, uint64_t param2, uint64_
             seconds((int*)param1);
             break;
         case 6:
-            beep();
+            beepOn();
             break;
         case 7:
             print_digit(param1,param2,param3,param4,(int*)param5);
             break;
         case 8:
             set_font_color(param1,param2,param3);
+            break;
+        case 9:
+            beepOff();
             break;
     }
 }

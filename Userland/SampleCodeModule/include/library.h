@@ -12,7 +12,8 @@ void clear();
 void get_hour(int * h);
 void get_minutes(int * m);
 void get_seconds(int * s);
-void beep();
+void beepOn();
+void beepOff();
 void put_digit(int number, int r, int g, int b, int* x);
 void set_font_color(int r, int g, int b);
 
