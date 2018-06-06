@@ -21,6 +21,7 @@ EXTERN exceptionDispatcher
 SECTION .text
 
 %macro pushState 0
+
 	push rax
 	push rbx
 	push rcx
@@ -54,6 +55,7 @@ SECTION .text
 	pop rcx
 	pop rbx
 	pop rax
+
 %endmacro
 
 %macro irqHandlerMaster 1

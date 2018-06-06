@@ -25,6 +25,9 @@ void opcode(uint64_t * rsp) {
 }
 
 void printRegisters(uint64_t * rsp) {
+	print_string("RSP: ");
+	print_hexa(rsp);
+	move_line();
 	for (int i = 0; i < REGISTERS; i++) {
 		print_string(registers[i]);
 		print_string(" ");
